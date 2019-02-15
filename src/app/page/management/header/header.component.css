@@ -1,0 +1,21 @@
+.trigger {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#nav.ant-menu-horizontal {
+  border-bottom: none;
+}
+
+#nav.ant-menu-horizontal > .ant-menu-submenu {
+  height: 64px;
+  line-height: 60px;
+  border-top: 2px solid transparent;
+}

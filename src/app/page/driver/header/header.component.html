@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center container-fluid px-lg-4 px-xl-5">
+  <a [routerLink]="['/']" class="brand mr-auto">工地管理系统</a>
+  <button
+    [nzContent]="popoverTemplate"
+    [nzOverlayClassName]="'popover'"
+    nz-button
+    nz-popover
+    nzPlacement="bottomRight"
+    nzShape="circle"
+    nzSize="large"
+    nzTrigger="click">
+    <i nz-icon theme="outline" type="user"></i>
+  </button>
+</div>
+<ng-template #popoverTemplate>
+  <div class="d-flex align-items-center px-4 py-3">
+    <nz-avatar class="mr-3" nzIcon="user" nzSize="large"></nz-avatar>
+    <div>
+      <strong>{{currentUser.name}}</strong>
+      <div>工号：{{currentUser.employeeId}}</div>
+    </div>
+  </div>
+  <ul nz-menu nzMode="inline">
+    <li nz-menu-divider></li>
+    <li (click)="logout()" nz-menu-item>
+      <a>
+        <i nz-icon theme="outline" type="logout"></i>
+        退出登陆</a>
+    </li>
+  </ul>
+</ng-template>

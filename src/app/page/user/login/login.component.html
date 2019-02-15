@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+  <nz-card
+    nz-col
+    nzLg="8"
+    nzMd="12"
+    nzSm="16"
+    nzXl="6"
+    nzXs="24">
+    <form (ngSubmit)="onSubmit()"
+          [formGroup]="loginForm"
+          nz-form>
+      <h2>登陆</h2>
+      <nz-form-item>
+        <nz-form-control
+          [nzValidateStatus]="(loginForm.get('username').touched&&
+          loginForm.get('username').errors)||
+          loginForm.hasError('mismatchedPassword')?'error':null">
+          <nz-input-group [nzPrefix]="prefixUser">
+            <input formControlName="username" nz-input placeholder="用户名" type="text">
+          </nz-input-group>
+          <nz-form-explain *ngIf="loginForm.get('username').touched&& loginForm.get('username').errors">请输入用户名
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          [nzValidateStatus]="(loginForm.get('password').touched&&
+          loginForm.get('password').errors)||
+          loginForm.hasError('mismatchedPassword')?'error':null">
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input formControlName="password" nz-input placeholder="密码" type="password">
+          </nz-input-group>
+          <nz-form-explain>
+            <ng-container
+              *ngIf="loginForm.get('password').touched&&
+              loginForm.hasError('required',['password'])&&
+!loginForm.hasError('mismatchedPassword')">
+              请输入密码
+            </ng-container>
+            <ng-container
+              *ngIf="loginForm.hasError('mismatchedPassword')">
+              用户名或密码错误
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button [disabled]="loginForm.invalid"
+                  [nzLoading]="loading"
+                  [nzType]="'primary'"
+                  class="login-form-button"
+                  nz-button
+                  nzBlock>登陆
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>

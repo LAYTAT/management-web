@@ -1,0 +1,100 @@
+<div class="d-flex align-items-center container-fluid px-lg-4 px-xl-5">
+  <i (click)="openDrawer()" [type]="visibleDrawer?'menu-fold':'menu-unfold'"
+     class="trigger pr-3 d-lg-none"
+     nz-icon></i>
+  <a [routerLink]="['/management']" class="brand mr-lg-5 mr-auto">工地管理系统</a>
+  <ul class="mr-auto d-none d-lg-inline-block" id="nav" nz-menu nzMode="horizontal">
+    <li [routerLinkActive]="['ant-menu-submenu-selected']" nz-submenu>
+      <span title><i nz-icon theme="outline" type="car"></i> 车辆管理</span>
+      <ul>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/diggers']">
+            挖掘机</a>
+        </li>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/pushdozers']">
+            推土机</a>
+        </li>
+      </ul>
+    </li>
+    <li [routerLinkActive]="['ant-menu-submenu-selected']" nz-submenu>
+      <span title><i nz-icon theme="outline" type="usergroup-add"></i> 人事管理</span>
+      <ul>
+        <li *ngIf="isBoss" [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/admins']">
+            管理员</a></li>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/drivers']">
+            驾驶员</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <button
+    [nzContent]="popoverTemplate"
+    [nzOverlayClassName]="'popover'"
+    nz-button
+    nz-popover
+    nzPlacement="bottomRight"
+    nzShape="circle"
+    nzSize="large"
+    nzTrigger="click">
+    <i nz-icon theme="outline" type="user"></i>
+  </button>
+</div>
+<ng-template #popoverTemplate>
+  <div class="d-flex align-items-center px-4 py-3">
+    <nz-avatar class="mr-3" nzIcon="user" nzSize="large"></nz-avatar>
+    <div>
+      <strong>{{currentUser.name}}</strong>
+      <div>工号：{{currentUser.employeeId}}</div>
+    </div>
+  </div>
+  <ul nz-menu nzMode="inline">
+    <li nz-menu-divider></li>
+    <li (click)="logout()" nz-menu-item>
+      <a>
+        <i nz-icon theme="outline" type="logout"></i>
+        退出登陆</a>
+    </li>
+  </ul>
+</ng-template>
+<ng-template #drawerTemplate>
+  <div class="p-3">
+    <i (click)="closeDrawer()" [type]="visibleDrawer?'menu-fold':'menu-unfold'"
+       class="trigger pr-3"
+       nz-icon></i>
+    <a [routerLink]="['/management/pushdozers']" class="brand mr-auto">工地管理系统</a>
+  </div>
+  <ul class="pt-3 pb-5"
+      style="border-top: 1px solid #d5d5d5"
+      nz-menu
+      nzMode="inline">
+    <li nz-submenu nzOpen>
+      <span title><i nz-icon theme="outline" type="car"></i> 车辆管理</span>
+      <ul>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/diggers']">
+            挖掘机</a>
+        </li>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/pushdozers']">
+            推土机</a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzOpen>
+      <span title><i nz-icon theme="outline" type="usergroup-add"></i> 人事管理</span>
+      <ul>
+        <li *ngIf="isBoss"
+            [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/admins']">
+            管理员</a></li>
+        <li [routerLinkActive]="['ant-menu-item-selected']" nz-menu-item>
+          <a [routerLink]="['/management/drivers']">
+            驾驶员</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</ng-template>

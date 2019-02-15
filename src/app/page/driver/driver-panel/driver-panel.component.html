@@ -1,0 +1,68 @@
+<nz-breadcrumb class="mb-3">
+  <nz-breadcrumb-item>
+    <i nz-icon type="home"></i> 我的车辆
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{car?.carId}}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<nz-alert class="mb-3 d-block d-sm-none"
+          nzMessage="请将手机切换为横屏进行操作！"
+          nzShowIcon
+          nzType="warning">
+</nz-alert>
+<div class="d-flex" style="position: relative">
+  <nz-card class="d-none d-xl-inline-block align-self-end">
+    <div class="d-flex justify-content-center" style="width: 134px">
+      <app-button [key]="'w'" [name]="'W'"></app-button>
+    </div>
+    <div style="margin-top: 5px">
+      <app-button [key]="'a'" [name]="'A'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'s'" [name]="'S'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'d'" [name]="'D'"></app-button>
+    </div>
+  </nz-card>
+  <div class="d-none d-sm-inline-block d-xl-none"
+       style="position: absolute;left: 25px;bottom: 25px">
+    <div class="d-flex justify-content-center" style="width: 134px">
+      <app-button [key]="'w'" [name]="'W'"></app-button>
+    </div>
+    <div style="margin-top: 5px">
+      <app-button [key]="'a'" [name]="'A'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'s'" [name]="'S'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'d'" [name]="'D'"></app-button>
+    </div>
+  </div>
+  <div style="width: 100%" class="mx-xl-4">
+    <img alt="" src="https://via.placeholder.com/400x230" style="width:100%">
+  </div>
+  <div class="d-none d-sm-inline-block d-xl-none"
+       style="position: absolute;right: 25px;bottom: 25px">
+    <div style="width: 181px">
+      <app-button [key]="'y'" [name]="'Y'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'u'" [name]="'U'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'i'" [name]="'I'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'o'" [name]="'O'"></app-button>
+    </div>
+    <div style="margin-top: 7px">
+      <app-button [key]="'h'" [name]="'H'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'j'" [name]="'J'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'k'" [name]="'K'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'l'" [name]="'L'"></app-button>
+    </div>
+  </div>
+  <nz-card class="d-none d-xl-inline-block align-self-end">
+    <div style="width: 181px">
+      <app-button [key]="'y'" [name]="'Y'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'u'" [name]="'U'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'i'" [name]="'I'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'o'" [name]="'O'"></app-button>
+    </div>
+    <div style="margin-top: 7px">
+      <app-button [key]="'h'" [name]="'H'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'j'" [name]="'J'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'k'" [name]="'K'" style="margin-right: 7px"></app-button>
+      <app-button [key]="'l'" [name]="'L'"></app-button>
+    </div>
+  </nz-card>
+</div>

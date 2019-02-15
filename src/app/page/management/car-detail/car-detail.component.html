@@ -1,0 +1,14 @@
+<nz-tabset>
+  <nz-tab [nzTitle]="liveTitle">
+    <app-operation-panel></app-operation-panel>
+  </nz-tab>
+  <nz-tab nzTitle="驾驶员">
+    <app-drivers [car]="car"></app-drivers>
+  </nz-tab>
+  <nz-tab nzTitle="管理">
+    <app-car-profile [car]="car"></app-car-profile>
+  </nz-tab>
+</nz-tabset>
+<ng-template #liveTitle>
+  <i nz-icon type="play-circle" theme="outline"></i> Live
+</ng-template>

@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-end">
+  <button (click)="this.isVisible = true;"
+          [nzType]="'primary'"
+          class="mb-3"
+          nz-button>添加驾驶员
+  </button>
+</div>
+<nz-modal [(nzVisible)]="isVisible"
+          nzTitle="添加驾驶员"
+          nzOkText="添加"
+          (nzOnCancel)="this.isVisible = false"
+          (nzOnOk)="handleOk()"
+          [nzOkLoading]="okLoading">
+  <form nz-form [formGroup]="driverForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24">驾驶员工号</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-input-number id="employeeId" formControlName="employeeId"></nz-input-number>
+        <nz-form-explain *ngIf="driverForm.get('employeeId').dirty && driverForm.get('employeeId').errors">The input is
+          not
+          valid E-mail!
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+<nz-table #driversTable
+          [nzData]="drivers"
+          [nzLoading]="loading"
+          [nzScroll]="{x:'600px'}">
+  <thead>
+  <tr>
+    <th [nzShowSort]="true"
+        [nzSortKey]="'employeeId'">工号
+    </th>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>年龄</th>
+    <th>加入时间</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let driver of driversTable.data">
+    <td>{{driver.employeeId}}</td>
+    <td>{{driver.name}}</td>
+    <td>{{driver.gender|gender}}</td>
+    <td>{{driver.age}}</td>
+    <td>{{driver.createdDate|date:'yyyy-M-d'}}</td>
+    <td>
+      <a nz-popconfirm
+         [nzTitle]="'确定要删除这个驾驶员?'"
+         (nzOnConfirm)="confirm(driver.employeeId)"
+         nzPlacement="leftTop">删除</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
