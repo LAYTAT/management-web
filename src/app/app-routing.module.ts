@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {NotFoundComponent} from './page/not-found/not-found.component';
-import {AdminAuthGuard} from './injectable/guard/admin-auth.guard';
-import {DriverAuthGuard} from './injectable/guard/driver-auth.guard';
-import {UnauthorizationComponent} from './page/unauthorization/unauthorization.component';
+import {NotFoundComponent} from './not-found/not-found.component';
+import {AdminAuthGuard} from './shared/guard/admin-auth.guard';
+import {DriverAuthGuard} from './shared/guard/driver-auth.guard';
+import {UnauthorizationComponent} from './unauthorization/unauthorization.component';
 
 const routes: Routes = [
   {
     path: 'management',
-    loadChildren: './page/management/management.module#ManagementModule',
+    loadChildren: './management/management.module#ManagementModule',
     canLoad: [AdminAuthGuard]
   },
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './page/driver/driver.module#DriverModule',
+    loadChildren: './driver/driver.module#DriverModule',
     canLoad: [DriverAuthGuard]
   },
   {path: '**', component: NotFoundComponent}];

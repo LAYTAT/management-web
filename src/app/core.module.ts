@@ -2,7 +2,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {NgModule} from '@angular/core';
 import {MqttModule} from 'ngx-mqtt';
 import {environment} from '../environments/environment';
-import {UserModule} from './page/user/user.module';
+import {UserModule} from './user/user.module';
 import {JwtModule} from '@auth0/angular-jwt';
 import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';

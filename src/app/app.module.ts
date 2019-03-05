@@ -4,12 +4,12 @@ import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core.module';
-import {NotFoundComponent} from './page/not-found/not-found.component';
-import {ErrorInterceptor} from './injectable/interceptor/ErrorInterceptor';
+import {NotFoundComponent} from './not-found/not-found.component';
+import {ErrorInterceptor} from './shared/interceptor/ErrorInterceptor';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {UnauthorizationComponent} from './page/unauthorization/unauthorization.component';
+import {UnauthorizationComponent} from './unauthorization/unauthorization.component';
 
 registerLocaleData(zh);
 

@@ -1,0 +1,55 @@
+<nz-breadcrumb class="mb-3">
+  <nz-breadcrumb-item>
+    车辆管理
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    {{name}}
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="mb-4 row">
+  <div class="col-12 col-lg-6 mb-2">
+    <button (click)="this.isVisible = true"
+            [nzType]="'primary'"
+            nz-button>添加{{name}}
+    </button>
+    <nz-modal [(nzVisible)]="isVisible"
+              nzTitle="车辆信息"
+              nzOkText="添加"
+              (nzOnCancel)="this.isVisible = false"
+              (nzOnOk)="handleOk()"
+              [nzOkLoading]="okLoading">
+      <form nz-form [formGroup]="carForm">
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="carId">编号</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <nz-input-number id="carId" formControlName="carId"></nz-input-number>
+            <nz-form-explain *ngIf="carForm.get('carId').dirty && carForm.get('carId').errors">The input is not
+              valid
+              E-mail!
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-modal>
+  </div>
+</div>
+<div class="row">
+  <div *ngFor="let car of cars" class="mb-4 col-12 col-sm-6 col-md-4 col-lg-3">
+    <a [routerLink]="['./',car.carId]">
+      <nz-card [nzBodyStyle]="{padding:'6px'}" [nzCover]="coverTemplate" nzHoverable>
+        <div>编号:{{car.carId}}</div>
+      </nz-card>
+    </a>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://via.placeholder.com/400x230"/>
+    </ng-template>
+  </div>
+</div>
+<nz-pagination
+  class="d-flex justify-content-end mt-4"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  [nzTotal]="total"
+  [nzShowSizeChanger]="true"
+  (nzPageIndexChange)="findAllByCarName()"
+  (nzPageSizeChange)="findAllByCarName(true)"></nz-pagination>
