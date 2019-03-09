@@ -7,7 +7,6 @@ import {CarName} from '../../../shared/model/car';
   styleUrls: ['./pushdozer-list.component.css']
 })
 export class PushdozerListComponent implements OnInit {
-
   carName = CarName.PUSHDOZER;
 
   constructor() {

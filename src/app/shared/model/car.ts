@@ -1,4 +1,5 @@
 import {User} from './user';
+import {Snapshot} from './snapshot';
 
 export interface Car {
   carId: number;
@@ -6,6 +7,7 @@ export interface Car {
   createdDate?: Date;
   liveUrl?: string;
   users?: User[];
+  snapshot?: Snapshot;
 }
 
 export enum CarName {

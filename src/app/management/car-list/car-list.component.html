@@ -7,7 +7,7 @@
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 <div class="mb-4 row">
-  <div class="col-12 col-lg-6 mb-2">
+  <div class="col-md-7 col-lg-8 mb-2">
     <button (click)="this.isVisible = true"
             [nzType]="'primary'"
             nz-button>添加{{name}}
@@ -41,7 +41,10 @@
       </nz-card>
     </a>
     <ng-template #coverTemplate>
-      <img alt="example" src="https://via.placeholder.com/400x230"/>
+      <img *ngIf="car.snapshot; else elseBlock" alt="example" [src]="car.snapshot.id|image"/>
+    </ng-template>
+    <ng-template #elseBlock>
+      <img alt="" src="https://via.placeholder.com/320x240"/>
     </ng-template>
   </div>
 </div>

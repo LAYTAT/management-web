@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RoleName} from '../../shared/model/role';
+import {RoleName} from '../../../shared/model/role';
 
 @Component({
   selector: 'app-admin-list',

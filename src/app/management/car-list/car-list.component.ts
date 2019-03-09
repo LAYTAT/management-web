@@ -9,6 +9,7 @@ import {CarService} from '../../shared/service/car.service';
   styleUrls: ['./car-list.component.css']
 })
 export class CarListComponent implements OnInit {
+
   pageIndex = 1;
   pageSize = 20;
   total = 1;
@@ -30,7 +31,7 @@ export class CarListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.findAllByCarName(this.carName);
+    this.findAllByCarName();
   }
 
   handleOk(): void {
@@ -48,7 +49,7 @@ export class CarListComponent implements OnInit {
     );
   }
 
-  findAllByCarName(carName: string, reset: boolean = false): void {
+  findAllByCarName(reset: boolean = false): void {
     if (reset) {
       this.pageIndex = 1;
     }

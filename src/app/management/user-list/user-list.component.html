@@ -80,14 +80,6 @@
       </form>
     </nz-modal>
   </div>
-  <div class="col-12 col-md-5 col-lg-4">
-    <nz-input-group [nzSuffix]=" suffixIconSearch">
-      <input #searchBox (input)="searchTerms.next(searchBox.value)" nz-input placeholder="输入编号进行搜索" type="text">
-    </nz-input-group>
-  </div>
-  <ng-template #suffixIconSearch>
-    <i nz-icon type="search"></i>
-  </ng-template>
 </div>
 <nz-table #usersTable
           [nzData]="users"
