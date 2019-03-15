@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Car} from '../../shared/model/car';
 
 @Component({
   selector: 'app-operation-panel',
@@ -6,6 +7,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./operation-panel.component.css']
 })
 export class OperationPanelComponent implements OnInit {
+  @Input()
+  car: Car;
 
   constructor() {
   }

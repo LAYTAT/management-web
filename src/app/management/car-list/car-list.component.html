@@ -7,7 +7,7 @@
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 <div class="mb-4 row">
-  <div class="col-md-7 col-lg-8 mb-2">
+  <div class="col-4 col-md-6 col-lg-7">
     <button (click)="this.isVisible = true"
             [nzType]="'primary'"
             nz-button>添加{{name}}
@@ -32,6 +32,15 @@
       </form>
     </nz-modal>
   </div>
+  <div class="col-8 col-md-6 col-lg-5">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input #searchBox (input)="searchTerms.next(searchBox.value)" nz-input
+             placeholder="输入编号进行搜索" type="text">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
 </div>
 <div class="row">
   <div *ngFor="let car of cars" class="mb-4 col-12 col-sm-6 col-md-4 col-lg-3">
@@ -48,11 +57,14 @@
     </ng-template>
   </div>
 </div>
+<div *ngIf="cars.length===0" class="d-flex" style="padding-top: 50px">
+  <nz-empty class="mx-auto"></nz-empty>
+</div>
 <nz-pagination
   class="d-flex justify-content-end mt-4"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
   [nzTotal]="total"
   [nzShowSizeChanger]="true"
-  (nzPageIndexChange)="findAllByCarName()"
-  (nzPageSizeChange)="findAllByCarName(true)"></nz-pagination>
+  (nzPageIndexChange)="findAll()"
+  (nzPageSizeChange)="findAll(true)"></nz-pagination>

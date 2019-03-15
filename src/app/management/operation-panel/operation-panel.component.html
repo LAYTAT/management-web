@@ -27,7 +27,10 @@
     </div>
   </div>
   <div style="width: 100%" class="mx-xl-4">
-    <img alt="live" src="https://via.placeholder.com/400x230" style="width: 100%">
+    <img *ngIf="car?.liveUrl;else elseBlock" alt="live" [src]="car.liveUrl" style="width: 100%">
+    <ng-template #elseBlock>
+      <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
+    </ng-template>
   </div>
   <div class="align-self-end">
     <nz-card class="d-none d-xl-inline-block">

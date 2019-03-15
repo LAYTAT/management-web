@@ -3,13 +3,10 @@
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="liveUrl">视频地址</nz-form-label>
     <nz-form-control [nzSm]="12" [nzXs]="24">
       <input formControlName="liveUrl" id="liveUrl" nz-input>
-      <nz-form-explain *ngIf="carForm.get('liveUrl').dirty &&
-      carForm.get('liveUrl').errors">The input is not valid E-mail!
-      </nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control [nzOffset]="6" [nzSpan]="14">
+    <nz-form-control [nzSpan]="14" class="offset-sm-3">
       <button nz-button nzType="primary">保存</button>
     </nz-form-control>
   </nz-form-item>

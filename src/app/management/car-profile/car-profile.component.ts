@@ -34,10 +34,10 @@ export class CarProfileComponent implements OnInit, OnChanges {
 
   onSubmit(): void {
     this.loading = true;
-    this.carService.updateByCarId(this.car.carId,
-      {
-        liveUrl: this.carForm.get('liveUrl').value
-      }).subscribe(
+    this.carService.updateLiveUrl(
+      this.car.carId,
+      this.carForm.get('liveUrl').value
+    ).subscribe(
       () => {
         this.loading = false;
       },

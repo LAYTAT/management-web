@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Car, CarName} from '../../shared/model/car';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CarService} from '../../shared/service/car.service';
+import {BehaviorSubject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-car-list',
@@ -9,6 +11,7 @@ import {CarService} from '../../shared/service/car.service';
   styleUrls: ['./car-list.component.css']
 })
 export class CarListComponent implements OnInit {
+  searchTerms = new BehaviorSubject<string>('');
 
   pageIndex = 1;
   pageSize = 20;
@@ -31,7 +34,14 @@ export class CarListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.findAllByCarName();
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(
+      () => {
+        this.findAll();
+      }
+    );
   }
 
   handleOk(): void {
@@ -49,11 +59,11 @@ export class CarListComponent implements OnInit {
     );
   }
 
-  findAllByCarName(reset: boolean = false): void {
+  findAll(reset: boolean = false): void {
     if (reset) {
       this.pageIndex = 1;
     }
-    this.carService.findAllByCarName(this.carName,
+    this.carService.findAll(this.carName, this.searchTerms.getValue(),
       this.pageIndex, this.pageSize, 'carId,desc')
       .subscribe(
         page => {

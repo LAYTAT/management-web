@@ -4,7 +4,6 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {Page} from '../model/page';
 import {Car, CarName} from '../model/car';
-import {UpdateCarRequest} from '../model/update-car-request';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +22,15 @@ export class CarService {
     return this.http.get<Car[]>(`${this.carsUrl}/mycars`);
   }
 
-  findAllByCarName(carName: CarName,
-                   pageIndex: number,
-                   pageSize: number,
-                   sort: string): Observable<Page<Car>> {
+  findAll(carName: CarName,
+          carId: string,
+          pageIndex: number,
+          pageSize: number,
+          sort: string): Observable<Page<Car>> {
     return this.http.get<Page<Car>>(this.carsUrl, {
       params: {
         'carName': carName,
+        'carId': carId,
         'page': String(pageIndex - 1),
         'size': String(pageSize),
         'sort': sort
@@ -51,7 +52,8 @@ export class CarService {
       {params: {employeeId: String(employeeId)}});
   }
 
-  updateByCarId(carId: number, request: UpdateCarRequest): Observable<Car> {
-    return this.http.patch<Car>(`${this.carsUrl}/${carId}`, request);
+  updateLiveUrl(carId: number, liveUrl: string): Observable<Car> {
+    return this.http.patch<Car>(`${this.carsUrl}/${carId}`,
+      {'liveUrl': liveUrl});
   }
 }
