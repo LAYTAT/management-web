@@ -16,17 +16,13 @@
               nzTitle="车辆信息"
               nzOkText="添加"
               (nzOnCancel)="this.isVisible = false"
-              (nzOnOk)="handleOk()"
+              (nzOnOk)="addCar()"
               [nzOkLoading]="okLoading">
       <form nz-form [formGroup]="carForm">
         <nz-form-item>
           <nz-form-label nzSm="4" nzXs="24" nzFor="carId">编号</nz-form-label>
           <nz-form-control nzSm="18" nzXs="24">
             <nz-input-number id="carId" formControlName="carId"></nz-input-number>
-            <nz-form-explain *ngIf="carForm.get('carId').dirty && carForm.get('carId').errors">The input is not
-              valid
-              E-mail!
-            </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </form>

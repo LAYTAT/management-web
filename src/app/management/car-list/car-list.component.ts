@@ -44,7 +44,7 @@ export class CarListComponent implements OnInit {
     );
   }
 
-  handleOk(): void {
+  addCar(): void {
     this.okLoading = true;
     const car: Car = {
       carId: this.carForm.get('carId').value

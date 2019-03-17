@@ -6,77 +6,71 @@
     {{role}}
   </nz-breadcrumb-item>
 </nz-breadcrumb>
-<button (click)="this.isVisible = true;"
-        [nzType]="'primary'"
-        nz-button>添加{{role}}
-</button>
-<nz-modal [(nzVisible)]="isVisible"
-          nzTitle="驾驶员信息"
-          nzOkText="添加"
-          (nzOnCancel)="this.isVisible = false"
-          (nzOnOk)="handleOk()"
-          [nzOkLoading]="okLoading">
-  <form nz-form [formGroup]="userForm">
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="employeeId">工号</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <nz-input-number id="employeeId" formControlName="employeeId"></nz-input-number>
-        <nz-form-explain *ngIf="userForm.get('employeeId').dirty && userForm.get('employeeId').errors">The input is
-          not
-          valid
-          E-mail!
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="username">用户名</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <input id="username" type="text" nz-input formControlName="username">
-        <nz-form-explain *ngIf="userForm.get('username').dirty &&
-         userForm.get('username').errors">Please input your
-          username!
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="password">密码</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <input id="password" type="password" nz-input formControlName="password">
-        <nz-form-explain *ngIf="userForm.get('password').dirty &&
-         userForm.get('password').errors">The input is not
-          valid
-          E-mail!
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="name">姓名</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <input id="name" type="text" nz-input formControlName="name">
-        <nz-form-explain *ngIf="userForm.get('name').dirty &&
-         userForm.get('name').errors">The input is not
-          valid
-          E-mail!
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="gender">性别</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <nz-radio-group id="gender" formControlName="gender" nzName="radioGroup">
-          <label nz-radio nzValue="MAN">男</label>
-          <label nz-radio nzValue="WOMAN">女</label>
-        </nz-radio-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label nzSm="4" nzXs="24" nzFor="age">年龄</nz-form-label>
-      <nz-form-control nzSm="18" nzXs="24">
-        <nz-input-number id="age" formControlName="age"></nz-input-number>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-</nz-modal>
+<div class="mb-4 row">
+  <div class="col-4 col-md-6 col-lg-7">
+    <button (click)="this.isVisible = true;"
+            [nzType]="'primary'"
+            nz-button>添加{{role}}
+    </button>
+    <nz-modal [(nzVisible)]="isVisible"
+              nzTitle="驾驶员信息"
+              nzOkText="添加"
+              (nzOnCancel)="this.isVisible = false"
+              (nzOnOk)="addUser()"
+              [nzOkLoading]="okLoading">
+      <form nz-form [formGroup]="userForm">
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="employeeId">工号</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <nz-input-number id="employeeId" formControlName="employeeId"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="username">用户名</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <input type="text" nz-input formControlName="username">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="password">密码</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <input type="password" nz-input formControlName="password">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="name">姓名</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <input type="text" nz-input formControlName="name">
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="gender">性别</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <nz-radio-group id="gender" formControlName="gender" nzName="radioGroup">
+              <label nz-radio nzValue="MAN">男</label>
+              <label nz-radio nzValue="WOMAN">女</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSm="4" nzXs="24" nzFor="age">年龄</nz-form-label>
+          <nz-form-control nzSm="18" nzXs="24">
+            <nz-input-number id="age" formControlName="age"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-modal>
+  </div>
+  <div class="col-8 col-md-6 col-lg-5">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input #searchBox (input)="searchTerms.next(searchBox.value)" nz-input
+             placeholder="输入工号进行搜索" type="text">
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon type="search"></i>
+    </ng-template>
+  </div>
+</div>
 <nz-table #usersTable
           [nzData]="users"
           [nzLoading]="loading"
@@ -86,8 +80,8 @@
           [nzTotal]="total"
           [nzScroll]="{x:'600px'}"
           [nzFrontPagination]="false"
-          (nzPageIndexChange)="findAllByRoleName()"
-          (nzPageSizeChange)="findAllByRoleName(true)">
+          (nzPageIndexChange)="findAll()"
+          (nzPageSizeChange)="findAll(true)">
   <thead (nzSortChange)="changeSort($event)">
   <tr>
     <th nzShowSort
@@ -112,7 +106,7 @@
     <td>
       <a nz-popconfirm
          [nzTitle]=popConfirmTitle
-         (nzOnConfirm)="confirm(user.employeeId)"
+         (nzOnConfirm)="deleteUser(user.employeeId)"
          nzPlacement="leftTop">删除</a>
     </td>
   </tr>

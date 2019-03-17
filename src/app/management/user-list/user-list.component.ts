@@ -4,6 +4,7 @@ import {UserService} from '../../shared/service/user.service';
 import {Gender, User} from '../../shared/model/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list',
@@ -42,10 +43,16 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.findAllByRoleName();
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(() => {
+        this.findAll();
+      }
+    );
   }
 
-  handleOk(): void {
+  addUser(): void {
     this.okLoading = true;
     const user: User = {
       employeeId: this.userForm.get('employeeId').value,
@@ -58,6 +65,7 @@ export class UserListComponent implements OnInit {
     this.userService.save(user, this.roleName).subscribe(
       u => {
         this.users.unshift(u);
+        this.users = this.users.slice();
         this.isVisible = false;
         this.okLoading = false;
       }, () => this.okLoading = false
@@ -75,15 +83,16 @@ export class UserListComponent implements OnInit {
       default:
         this.sort = 'createdDate,desc';
     }
-    this.findAllByRoleName();
+    this.findAll();
   }
 
-  findAllByRoleName(reset: boolean = false): void {
+  findAll(reset: boolean = false): void {
     if (reset) {
       this.pageIndex = 1;
     }
     this.loading = true;
-    this.userService.findAllByRoleName(this.roleName,
+    this.userService.findAll(this.roleName,
+      this.searchTerms.getValue(),
       this.pageIndex, this.pageSize, this.sort)
       .subscribe(
         page => {
@@ -95,7 +104,7 @@ export class UserListComponent implements OnInit {
       );
   }
 
-  confirm(employeeId: number): void {
+  deleteUser(employeeId: number): void {
     this.userService.deleteByEmployeeId(employeeId).subscribe();
     this.users = this.users.filter(
       driver => driver.employeeId !== employeeId);

@@ -16,10 +16,8 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  findAllByRoleName(roleName: RoleName,
-                    pageIndex: number,
-                    pageSize: number,
-                    sort: string): Observable<Page<User>> {
+  findAll(roleName: RoleName, employeeId: string,
+          pageIndex: number, pageSize: number, sort: string): Observable<Page<User>> {
     let url: string;
     if (roleName === RoleName.ROLE_DRIVER) {
       url = `${this.usersUrl}/drivers`;
@@ -27,6 +25,7 @@ export class UserService {
       url = `${this.usersUrl}/admins`;
     }
     const params = new HttpParams().append('roleName', roleName)
+      .append('employeeId', employeeId)
       .append('page', String(pageIndex - 1))
       .append('size', String(pageSize))
       .append('sort', sort);
