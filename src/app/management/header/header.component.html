@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center container-fluid px-sm-4 px-xl-5">
+<div class="d-flex align-items-center container-fluid px-sm-4 px-lg-5">
   <i (click)="openDrawer()" [type]="visibleDrawer?'menu-fold':'menu-unfold'"
      class="trigger pr-3 d-lg-none"
      nz-icon></i>
@@ -60,9 +60,9 @@
   </ul>
 </ng-template>
 <ng-template #drawerTemplate>
-  <div class="py-3">
+  <div class="p-3">
     <i (click)="closeDrawer()" [type]="visibleDrawer?'menu-fold':'menu-unfold'"
-       class="trigger px-4"
+       class="trigger mr-3"
        nz-icon></i>
     <a [routerLink]="['/management/pushdozers']" class="brand mr-auto">工地管理系统</a>
   </div>
@@ -97,4 +97,7 @@
       </ul>
     </li>
   </ul>
+  <div style="position: absolute;bottom: 12px;left:65px">
+    ©2019 工地管理系统
+  </div>
 </ng-template>
