@@ -22,6 +22,7 @@ import {OrbitControls} from 'three-orbitcontrols-ts';
 import {Digger} from './digger';
 import {KeyboardEventService} from '../../shared/service/keyboard-event.service';
 import {filter} from 'rxjs/operators';
+import {WidthService} from '../../shared/service/width.service';
 import Timer = NodeJS.Timer;
 
 const CLEAR_COLOR_HEX = 0x233333; // 渲染的背景色
@@ -67,7 +68,8 @@ export class ModelComponent implements OnInit {
   private mainBodyLeftTimer: Timer;
   private mainBodyRightTimer: Timer;
 
-  constructor(private keyboardEventService: KeyboardEventService) {
+  constructor(private keyboardEventService: KeyboardEventService,
+              private widthService: WidthService) {
   }
 
   ngOnInit() {
@@ -76,6 +78,9 @@ export class ModelComponent implements OnInit {
     this.initialize();
     this.subscribeKeydown();
     this.subscribeKeyup();
+    this.widthService.width$.subscribe(
+      width => console.log(width)
+    );
   }
 
   subscribeKeydown(): void {
