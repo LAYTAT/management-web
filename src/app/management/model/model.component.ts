@@ -43,9 +43,10 @@ const PLATFORM_OTHER_HEX = 0xddccbb; // 平台的其他颜色
 })
 export class ModelComponent implements OnInit {
 
-
-  @ViewChild('statsOutput') statsRef: ElementRef;
-  @ViewChild('modelOutput') modelRef: ElementRef;
+  @ViewChild('statsOutput')
+  statsRef: ElementRef;
+  @ViewChild('modelOutput')
+  modelRef: ElementRef;
   public digger: Digger;
   private statsCon: HTMLElement;
   private modelCon: HTMLElement;
@@ -63,7 +64,7 @@ export class ModelComponent implements OnInit {
   private diggerRightTimer: Timer;
 
   private longArmUpTimer: Timer;
-  private longArmDowmTimer: Timer;
+  private longArmDownTimer: Timer;
 
   private mainBodyLeftTimer: Timer;
   private mainBodyRightTimer: Timer;
@@ -91,14 +92,13 @@ export class ModelComponent implements OnInit {
       filter(event => event.key === 'g')
     ).subscribe(() => this.turnBucketDown());
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'y')
+      filter(event => event.key === 'o')
     ).subscribe(() => {
       this.turnDiggerLeft();
     });
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'h')
+      filter(event => event.key === 'l')
     ).subscribe(() => {
-      console.log('h down');
       this.turnDiggerRight();
     });
     this.keyboardEventService.keydown$.pipe(
@@ -114,10 +114,10 @@ export class ModelComponent implements OnInit {
       filter(event => event.key === 'k')
     ).subscribe(() => this.turnMainBodyRight());
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'o')
+      filter(event => event.key === 'y')
     ).subscribe(() => this.turnMiddleArmUp());
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'l')
+      filter(event => event.key === 'h')
     ).subscribe(() => this.turnMiddleArmDown());
   }
 
@@ -129,14 +129,13 @@ export class ModelComponent implements OnInit {
       filter(event => event.key === 'g')
     ).subscribe(() => clearInterval(this.bucketDownTimer));
     this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'y')
+      filter(event => event.key === 'o')
     ).subscribe(() => {
       clearInterval(this.diggerLeftTimer);
     });
     this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'h')
+      filter(event => event.key === 'l')
     ).subscribe(() => {
-      console.log('h up');
       clearInterval(this.diggerRightTimer);
     });
     this.keyboardEventService.keyup$.pipe(
@@ -144,7 +143,7 @@ export class ModelComponent implements OnInit {
     ).subscribe(() => clearInterval(this.longArmUpTimer));
     this.keyboardEventService.keyup$.pipe(
       filter(event => event.key === 'j')
-    ).subscribe(() => clearInterval(this.longArmDowmTimer));
+    ).subscribe(() => clearInterval(this.longArmDownTimer));
     this.keyboardEventService.keyup$.pipe(
       filter(event => event.key === 'i')
     ).subscribe(() => clearInterval(this.mainBodyLeftTimer));
@@ -152,10 +151,10 @@ export class ModelComponent implements OnInit {
       filter(event => event.key === 'k')
     ).subscribe(() => clearInterval(this.mainBodyRightTimer));
     this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'o')
+      filter(event => event.key === 'y')
     ).subscribe(() => clearInterval(this.middleArmUpTimer));
     this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'l')
+      filter(event => event.key === 'h')
     ).subscribe(() => clearInterval(this.middleArmDownTimer));
   }
 
@@ -207,7 +206,7 @@ export class ModelComponent implements OnInit {
     this.diggerLeftTimer = setInterval(
       () => {
         this.digger.turn(0.01);
-      }, 20);
+      }, 50);
   }
 
   // 挖掘机右转
@@ -215,8 +214,7 @@ export class ModelComponent implements OnInit {
     this.diggerRightTimer = setInterval(
       () => {
         this.digger.turn(-0.01);
-        console.log('turn right');
-      }, 20);
+      }, 50);
   }
 
   // 车身左转
@@ -239,7 +237,7 @@ export class ModelComponent implements OnInit {
 
   // 长臂下转
   public turnLongArmDown(): void {
-    this.longArmDowmTimer = setInterval(
+    this.longArmDownTimer = setInterval(
       () => this.digger.turnLongArm(-0.01), 20);
   }
 
