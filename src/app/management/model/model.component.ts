@@ -24,6 +24,7 @@ import {KeyboardEventService} from '../../shared/service/keyboard-event.service'
 import {filter} from 'rxjs/operators';
 import {WidthService} from '../../shared/service/width.service';
 import Timer = NodeJS.Timer;
+import {WidthService} from '../../shared/service/width.service';
 
 const CLEAR_COLOR_HEX = 0x233333; // 渲染的背景色
 const GROUND_COLOR_HEX = 0x373737; // 基础地面的颜色
