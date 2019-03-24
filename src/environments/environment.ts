@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   mqttPort: 8083,
   mqttHostname: 'localhost',
-  domain: 'localhost:8090',
-  apiUrl: 'http://localhost:8090'
+  domain: '47.102.138.136:8090',
+  apiUrl: 'http://47.102.138.136:8090'
 };
 
 /*
