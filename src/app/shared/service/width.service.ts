@@ -11,7 +11,7 @@ export class WidthService {
   constructor() {
     this._width$ = fromEvent(window, 'resize').pipe(
       throttleTime(100),
-      map(() => [window.innerWidth, window.innerHeight])
+      map(() => window.innerWidth)
     );
   }
 

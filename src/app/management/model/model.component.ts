@@ -37,6 +37,7 @@ const STAGE_COLOR_HEX = 0x454545; // 展台的颜色
 const AURA_COLOR_HEX = 0xeeeeee; // 光环的颜色
 const PLATFORM_COLOR_HEX = 0x565656; // 平台的颜色
 const PLATFORM_OTHER_HEX = 0xddccbb; // 平台的其他颜色
+const WINDOW_SCALE = 1.3; // 窗口缩放比
 
 @Component({
   selector: 'app-model',
@@ -66,7 +67,7 @@ export class ModelComponent implements OnInit {
     this.subscribeKeyDown();
     this.subscribeKeyUp();
     this.widthService.width$.subscribe(
-      array => this.onResize(array[0], array[1])
+      width => this.onResize(width)
     );
   }
 
@@ -96,10 +97,10 @@ export class ModelComponent implements OnInit {
       filter(event => event.key === 'l')
     ).subscribe(() => this.digger.turnMainBodyRight());
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'a')
+      filter(event => event.key === 'd')
     ).subscribe(() => this.digger.turnDiggerLeft());
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'd')
+      filter(event => event.key === 'a')
     ).subscribe(() => this.digger.turnDiggerRight());
   }
 
@@ -141,8 +142,7 @@ export class ModelComponent implements OnInit {
     this.scene = new Scene();
 
     // 创建相机对象
-    this.camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight,
-      0.1, 1000);
+    this.camera = new PerspectiveCamera(45, WINDOW_SCALE, 0.1, 1000);
     this.camera.position.set(-8, 8, 8);
     this.camera.lookAt(new Vector3(0, 0, 0));
     this.scene.add(this.camera);
@@ -157,7 +157,7 @@ export class ModelComponent implements OnInit {
     // 创建渲染对象：原渲染器对象，无法胜任平面光源渲染任务
     this.renderer = new WebGLRenderer();
     this.renderer.setClearColor(CLEAR_COLOR_HEX);
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(window.innerWidth, window.innerWidth / WINDOW_SCALE);
 
     // 添加场景物体
     this.addSceneObject();
@@ -177,12 +177,10 @@ export class ModelComponent implements OnInit {
     }());
   }
 
-  private onResize(width, height): void {
-    console.log('Width:' + width);
-    console.log('Height:' + height);
-    this.camera.aspect = width / height;
+  private onResize(width: number): void {
+    this.camera.aspect = WINDOW_SCALE;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+    this.renderer.setSize(width, width / WINDOW_SCALE);
   }
 
   private addSceneObject(): void {

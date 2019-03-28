@@ -29,7 +29,7 @@ export class LongArm extends ArmsModule {
     super();
     this.maxAngle = 0.4;
     this.minAngle = -0.2;
-    this.speed = 0.002;
+    this.speed = 0.006;
     this.rotates = 0;
     this.clockwise = true;
   }

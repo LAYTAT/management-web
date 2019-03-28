@@ -25,7 +25,7 @@ export class Bucket extends ArmsModule {
     super();
     this.maxAngle = 0.1;
     this.minAngle = -3;
-    this.speed = 0.006;
+    this.speed = 0.01;
     this.rotates = 0;
     this.clockwise = true;
   }

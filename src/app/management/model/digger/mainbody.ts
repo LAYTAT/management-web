@@ -26,7 +26,7 @@ export class MainBody extends BodyModule {
   // 初始化对象时设置一些初始值
   constructor() {
     super();
-    this.speed = 0.004;
+    this.speed = 0.008;
     this.rotates = 0;
     this.clockwise = true;
   }

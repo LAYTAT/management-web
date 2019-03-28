@@ -29,7 +29,7 @@ export class MiddleArm extends ArmsModule {
     super();
     this.maxAngle = 1;
     this.minAngle = -0.1;
-    this.speed = 0.003;
+    this.speed = 0.006;
     this.rotates = 0;
     this.clockwise = true;
   }
