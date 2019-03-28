@@ -169,11 +169,10 @@ export class ModelComponent implements OnInit {
 
   private render(): void {
     this.orbit.update();
-    // this.digger.turn();
     const self: ModelComponent = this;
     (function render() {
-      requestAnimationFrame(render);
       self.digger.turn();
+      requestAnimationFrame(render);
       self.renderer.render(self.scene, self.camera);
     }());
   }
