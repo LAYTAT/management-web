@@ -6,7 +6,8 @@
  */
 
 import {Object3D} from 'three';
-import {DiggerModule} from './common';
+import {DiggerModule} from './module';
+import {Digger} from './digger';
 
 export abstract class ArmsModule implements DiggerModule {
   // 最大绝对活动角度
@@ -15,13 +16,12 @@ export abstract class ArmsModule implements DiggerModule {
   minAngle: number;
   // 接口属性
   speed: number;
-  clockwise: boolean;
   rotates: number;
+  clockwise: boolean;
   model: Object3D;
 
   // 接口方法
-  modeling(): void {
-    console.log('ArmsModule');
+  modeling(digger: Digger): void {
   }
 
   turn(): void {

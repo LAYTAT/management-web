@@ -5,24 +5,14 @@
  * 说明：这是主体模型模块的定义文件
  */
 
-import {
-  ExtrudeGeometry,
-  Geometry,
-  GeometryUtils,
-  Object3D,
-  Mesh,
-  MeshPhongMaterial,
-  Shape
-} from 'three';
-import {Common} from './common';
+import {ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {Common} from '../common';
 import {LongArm} from './longarm';
 import {BodyModule} from './body';
+import {Digger} from './digger';
 
 // 主体类
 export class MainBody extends BodyModule {
-  // 长臂对象
-  public longArm: LongArm;
-
   // 初始化对象时设置一些初始值
   constructor() {
     super();
@@ -56,7 +46,7 @@ export class MainBody extends BodyModule {
   }
 
   // 接口方法
-  modeling(): void {
+  modeling(digger: Digger): void {
     const geometry = new Geometry(); // 几何形状的组合体
     const material = new MeshPhongMaterial({color: 0xbfad6f}); // 主体材质
 
@@ -87,9 +77,10 @@ export class MainBody extends BodyModule {
     this.model.add(new Mesh(geometry, material));
 
     // 添加长臂对象
-    this.longArm = new LongArm();
-    this.longArm.modeling();
-    this.model.add(this.longArm.model);
+    const longArm = new LongArm();
+    longArm.modeling(digger);
+    this.model.add(longArm.model);
+    digger.setMainBody(this);
   }
 
 }

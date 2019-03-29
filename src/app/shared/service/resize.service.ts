@@ -5,7 +5,7 @@ import {map, throttleTime} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class WidthService {
+export class ResizeService {
   private readonly _width$;
 
   constructor() {

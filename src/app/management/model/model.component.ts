@@ -1,9 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   CylinderGeometry,
   ExtrudeGeometry,
@@ -22,10 +17,10 @@ import {
 } from 'three';
 import {OrbitControls} from 'three-orbitcontrols-ts';
 import {Digger} from './digger/digger';
+import {ResizeService} from '../../shared/service/resize.service';
+import {Common} from './common';
 import {KeyboardEventService} from '../../shared/service/keyboard-event.service';
-import {filter} from 'rxjs/operators';
-import {WidthService} from '../../shared/service/width.service';
-import {Common} from './digger/common';
+import {Controller} from './controller';
 
 const CLEAR_COLOR_HEX = 0x233333; // 渲染的背景色
 const GROUND_COLOR_HEX = 0x373737; // 基础地面的颜色
@@ -37,6 +32,7 @@ const STAGE_COLOR_HEX = 0x454545; // 展台的颜色
 const AURA_COLOR_HEX = 0xeeeeee; // 光环的颜色
 const PLATFORM_COLOR_HEX = 0x565656; // 平台的颜色
 const PLATFORM_OTHER_HEX = 0xddccbb; // 平台的其他颜色
+const WINDOW_TIMES = 0.75; // 窗口实际比例
 const WINDOW_SCALE = 1.3; // 窗口缩放比
 
 @Component({
@@ -48,93 +44,27 @@ export class ModelComponent implements OnInit {
   @ViewChild('statsOutput') statsRef: ElementRef;
   @ViewChild('modelOutput') modelRef: ElementRef;
 
-  public digger: Digger;
-  private statsCon: HTMLElement;
-  private modelCon: HTMLElement;
+  private digger: Digger;
+  private statsContainer: HTMLElement;
+  private modelContainer: HTMLElement;
   private scene: Scene;
   private camera: PerspectiveCamera;
   private renderer: WebGLRenderer;
   private orbit: OrbitControls;
 
   constructor(private keyboardEventService: KeyboardEventService,
-              private widthService: WidthService) {
+              private resizeService: ResizeService) {
   }
 
   ngOnInit() {
-    this.statsCon = this.statsRef.nativeElement;
-    this.modelCon = this.modelRef.nativeElement;
+    this.statsContainer = this.statsRef.nativeElement;
+    this.modelContainer = this.modelRef.nativeElement;
     this.initialize();
-    this.subscribeKeyDown();
-    this.subscribeKeyUp();
-    this.widthService.width$.subscribe(
-      width => this.onResize(width)
+    Controller.getDefaultObject(this.digger, this.keyboardEventService).subscribeKeyDown();
+    Controller.getDefaultObject(this.digger, this.keyboardEventService).subscribeKeyUp();
+    this.resizeService.width$.subscribe(
+      width => this.onResize(width * WINDOW_TIMES)
     );
-  }
-
-  subscribeKeyDown(): void {
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'y')
-    ).subscribe(() => this.digger.turnBucketUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'h')
-    ).subscribe(() => this.digger.turnBucketDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'u')
-    ).subscribe(() => this.digger.turnMiddleArmUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'j')
-    ).subscribe(() => this.digger.turnMiddleArmDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'i')
-    ).subscribe(() => this.digger.turnLongArmUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'k')
-    ).subscribe(() => this.digger.turnLongArmDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'o')
-    ).subscribe(() => this.digger.turnMainBodyLeft());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'l')
-    ).subscribe(() => this.digger.turnMainBodyRight());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'd')
-    ).subscribe(() => this.digger.turnDiggerLeft());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'a')
-    ).subscribe(() => this.digger.turnDiggerRight());
-  }
-
-  subscribeKeyUp(): void {
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'y')
-    ).subscribe(() => this.digger.stopBucketRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'h')
-    ).subscribe(() => this.digger.stopBucketRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'u')
-    ).subscribe(() => this.digger.stopMiddleArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'j')
-    ).subscribe(() => this.digger.stopMiddleArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'i')
-    ).subscribe(() => this.digger.stopLongArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'k')
-    ).subscribe(() => this.digger.stopLongArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'o')
-    ).subscribe(() => this.digger.stopMainBodyRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'l')
-    ).subscribe(() => this.digger.stopMainBodyRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'a')
-    ).subscribe(() => this.digger.stopDiggerRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'd')
-    ).subscribe(() => this.digger.stopDiggerRotation());
   }
 
   initialize(): void {
@@ -157,13 +87,13 @@ export class ModelComponent implements OnInit {
     // 创建渲染对象：原渲染器对象，无法胜任平面光源渲染任务
     this.renderer = new WebGLRenderer();
     this.renderer.setClearColor(CLEAR_COLOR_HEX);
-    this.renderer.setSize(window.innerWidth, window.innerWidth / WINDOW_SCALE);
+    this.renderer.setSize(window.innerWidth * WINDOW_TIMES, window.innerWidth * WINDOW_TIMES / WINDOW_SCALE);
 
     // 添加场景物体
     this.addSceneObject();
 
     // 与显示元素绑定并循环渲染
-    this.modelCon.appendChild(this.renderer.domElement);
+    this.modelContainer.appendChild(this.renderer.domElement);
     this.render();
   }
 
@@ -275,6 +205,5 @@ export class ModelComponent implements OnInit {
     shape.holes.push(hole);
     return shape;
   }
-
 
 }

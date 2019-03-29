@@ -5,25 +5,14 @@
  * 说明：这是底盘模型模块的定义文件
  */
 
-import {
-  ExtrudeGeometry,
-  Geometry,
-  GeometryUtils,
-  Object3D,
-  Mesh,
-  MeshPhongMaterial,
-  CylinderGeometry,
-  Shape
-} from 'three';
-import {Common} from './common';
+import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {Common} from '../common';
 import {BodyModule} from './body';
 import {MainBody} from './mainbody';
+import {Digger} from './digger';
 
 // 底盘类
 export class Chassis extends BodyModule {
-  // 主体对象
-  public mainBody: MainBody;
-
   // 初始化对象时设置一些初始值
   constructor() {
     super();
@@ -55,7 +44,7 @@ export class Chassis extends BodyModule {
   }
 
   // 接口方法
-  modeling(): void {
+  modeling(digger: Digger): void {
     const geometry = new Geometry(); // 几何形状的组合体
     const material = new MeshPhongMaterial({color: 0x383838}); // 底盘材质
     const trackWidth = 1.6; // 履带的内宽
@@ -87,9 +76,10 @@ export class Chassis extends BodyModule {
     this.model.add(new Mesh(geometry, material));
 
     // 添加主体对象
-    this.mainBody = new MainBody();
-    this.mainBody.modeling();
-    this.model.add(this.mainBody.model);
+    const mainBody = new MainBody();
+    mainBody.modeling(digger);
+    this.model.add(mainBody.model);
+    digger.setChassis(this);
   }
 
 }

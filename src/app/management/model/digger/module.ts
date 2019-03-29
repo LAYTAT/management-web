@@ -1,16 +1,12 @@
 /*
  * 作者：郑庆文
- * 时间：2019-03-24
+ * 时间：2019-03-29
  * 邮箱：quinceyzheng@126.com
- * 说明：这是通用模块的定义文件
+ * 说明：这是挖掘机模型模块的接口文件
  */
 
-import {
-  Geometry,
-  Material,
-  Object3D,
-  Mesh
-} from 'three';
+import {Object3D} from 'three';
+import {Digger} from './digger';
 
 /* 挖掘机3D模型模块的接口 */
 export interface DiggerModule {
@@ -22,27 +18,23 @@ export interface DiggerModule {
   rotates: number;
   // 旋转方向：true代表顺时针，false代表逆时针
   clockwise: boolean;
+
   // 模型转动函数
   turn(): void;
+
   // 模型停止函数
   stop(): void;
+
   // 建模加载函数
-  modeling(): void;
+  modeling(digger: Digger): void;
+
   // 角度设置函数
   setAngle(angle: number): void;
+
   // 次数设置函数
   setTimes(times: number): void;
+
   // 方向设置函数
   setClock(clock: number): void;
-}
 
-/* 包含通用函数的类 */
-export class Common {
-  // 网格生成函数
-  static createMesh(geometry: Geometry, material: Material, x: number, y: number, z: number): Mesh {
-    const mesh = new Mesh(geometry, material);
-    // mesh.castShadow = true;
-    mesh.position.set(x, y, z);
-    return mesh;
-  }
 }

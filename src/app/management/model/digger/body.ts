@@ -6,18 +6,18 @@
  */
 
 import {Object3D} from 'three';
-import {DiggerModule} from './common';
+import {DiggerModule} from './module';
+import {Digger} from './digger';
 
 export abstract class BodyModule implements DiggerModule {
   // 接口属性
   speed: number;
-  clockwise: boolean;
   rotates: number;
+  clockwise: boolean;
   model: Object3D;
 
   // 接口方法
-  modeling(): void {
-    console.log('BodyModule');
+  modeling(digger: Digger): void {
   }
 
   turn(): void {

@@ -5,25 +5,14 @@
  * 说明：这是中臂模型模块的定义文件
  */
 
-import {
-  CylinderGeometry,
-  ExtrudeGeometry,
-  Geometry,
-  GeometryUtils,
-  Object3D,
-  Mesh,
-  MeshPhongMaterial,
-  Shape
-} from 'three';
-import {Common} from './common';
+import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {Common} from '../common';
 import {Bucket} from './bucket';
 import {ArmsModule} from './arms';
+import {Digger} from './digger';
 
 // 中臂类
 export class MiddleArm extends ArmsModule {
-  // 挖斗对象
-  public bucket: Bucket;
-
   // 初始化对象时设置一些初始值
   constructor() {
     super();
@@ -46,7 +35,7 @@ export class MiddleArm extends ArmsModule {
   }
 
   // 接口方法
-  modeling(): void {
+  modeling(digger: Digger): void {
     const geometry = new Geometry(); // 几何形状的组合体
     const material = new MeshPhongMaterial({color: 0xcfbc58}); // 短臂材质
 
@@ -70,10 +59,11 @@ export class MiddleArm extends ArmsModule {
     this.model.add(new Mesh(geometry, material));
 
     // 添加挖斗对象
-    this.bucket = new Bucket();
-    this.bucket.modeling();
-    this.model.add(this.bucket.model);
+    const bucket = new Bucket();
+    bucket.modeling(digger);
+    this.model.add(bucket.model);
     this.model.position.set(2.6, 2, 0);
+    digger.setMiddleArm(this);
   }
 
 }

@@ -24,12 +24,29 @@ export class Digger {
   // 初始化对象
   constructor(scene: Scene) {
     this.chassis = new Chassis();
-    this.chassis.modeling();
-    this.mainBody = this.chassis.mainBody;
-    this.longArm = this.mainBody.longArm;
-    this.middleArm = this.longArm.middleArm;
-    this.bucket = this.middleArm.bucket;
+    this.chassis.modeling(this);
     scene.add(this.chassis.model);
+  }
+
+  // 属性注入函数
+  public setChassis(chassis: Chassis): void {
+    this.chassis = chassis;
+  }
+
+  public setMainBody(mainBody: MainBody): void {
+    this.mainBody = mainBody;
+  }
+
+  public setLongArm(longArm: LongArm): void {
+    this.longArm = longArm;
+  }
+
+  public setMiddleArm(middleArm: MiddleArm): void {
+    this.middleArm = middleArm;
+  }
+
+  public setBucket(bucket: Bucket): void {
+    this.bucket = bucket;
   }
 
   // 角度设置函数：一般初始时设置
@@ -66,12 +83,12 @@ export class Digger {
   /************************>2.挖掘机转向的函数集<***************************/
   // 一直左转
   public turnDiggerLeft(): void {
-    this.chassis.setClock(-1);
+    this.chassis.setClock(1);
     this.chassis.setTimes(-1);
   }
   // 一直右转
   public turnDiggerRight(): void {
-    this.chassis.setClock(1);
+    this.chassis.setClock(-1);
     this.chassis.setTimes(-1);
   }
   // 停止转动

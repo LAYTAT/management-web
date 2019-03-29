@@ -5,25 +5,14 @@
  * 说明：这是长臂模型模块的定义文件
  */
 
-import {
-  CylinderGeometry,
-  ExtrudeGeometry,
-  Geometry,
-  GeometryUtils,
-  Object3D,
-  Mesh,
-  MeshPhongMaterial,
-  Shape
-} from 'three';
-import {Common} from './common';
+import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {Common} from '../common';
 import {ArmsModule} from './arms';
 import {MiddleArm} from './middlearm';
+import {Digger} from './digger';
 
 // 长臂类
 export class LongArm extends ArmsModule {
-  // 中臂对象
-  public middleArm: MiddleArm;
-
   // 初始化对象时设置一些初始值
   constructor() {
     super();
@@ -45,7 +34,7 @@ export class LongArm extends ArmsModule {
     return shape;
   }
 
-  modeling(): void {
+  modeling(digger: Digger): void {
     const geometry = new Geometry(); // 几何形状的组合体
     const material = new MeshPhongMaterial({color: 0xffd700}); // 长臂材质
 
@@ -69,10 +58,11 @@ export class LongArm extends ArmsModule {
     this.model.add(new Mesh(geometry, material));
 
     // 添加中臂对象
-    this.middleArm = new MiddleArm();
-    this.middleArm.modeling();
-    this.model.add(this.middleArm.model);
+    const middleArm = new MiddleArm();
+    middleArm.modeling(digger);
+    this.model.add(middleArm.model);
     this.model.position.set(1, 1, 0.2);
+    digger.setLongArm(this);
   }
 
 }

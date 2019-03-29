@@ -5,18 +5,10 @@
  * 说明：这是挖斗模型模块的定义文件
  */
 
-import {
-  CylinderGeometry,
-  ExtrudeGeometry,
-  Geometry,
-  GeometryUtils,
-  Object3D,
-  Mesh,
-  MeshPhongMaterial,
-  Shape,
-} from 'three';
-import {Common} from './common';
+import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape,} from 'three';
+import {Common} from '../common';
 import {ArmsModule} from './arms';
+import {Digger} from './digger';
 
 // 挖斗类
 export class Bucket extends ArmsModule {
@@ -46,7 +38,7 @@ export class Bucket extends ArmsModule {
   }
 
   // 接口方法
-  modeling(): void {
+  modeling(digger: Digger): void {
     const geometry = new Geometry(); // 几何形状的组合体
     const material = new MeshPhongMaterial({color: 0x373737}); // 挖斗材质
 
@@ -77,6 +69,7 @@ export class Bucket extends ArmsModule {
     this.model = new Object3D();
     this.model.add(new Mesh(geometry, material));
     this.model.position.set(0.05, -1.82, 0);
+    digger.setBucket(this);
   }
 
 }
