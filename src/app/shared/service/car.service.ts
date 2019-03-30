@@ -56,4 +56,13 @@ export class CarService {
     return this.http.patch<Car>(`${this.carsUrl}/${carId}`,
       {'liveUrl': liveUrl});
   }
+
+  startDrive(carId: number, employeeId: number): Observable<Car> {
+    return this.http.patch<Car>(`${this.carsUrl}/${carId}/startDrive`, null,
+      {params: {employeeId: String(employeeId)}});
+  }
+
+  finishDrive(carId: number): Observable<Car> {
+    return this.http.patch<Car>(`${this.carsUrl}/${carId}/finishDrive`, null);
+  }
 }

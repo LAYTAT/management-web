@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Car} from '../../shared/model/car';
 import {ActivatedRoute} from '@angular/router';
-import {CarService} from '../../shared/service/car.service';
-import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-pushdozer-detail',
@@ -11,16 +8,14 @@ import {switchMap} from 'rxjs/operators';
 })
 export class PushdozerDetailComponent implements OnInit {
 
-  car: Car;
+  carId: number;
 
-  constructor(private route: ActivatedRoute,
-              private carService: CarService) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap(params => this.carService.findByCarId(+params.get('id')))
-    ).subscribe(car => this.car = car);
+    this.route.paramMap.subscribe(
+      params => +params.get('id'));
   }
 
 }

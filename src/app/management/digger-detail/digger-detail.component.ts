@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {CarService} from '../../shared/service/car.service';
-import {switchMap} from 'rxjs/operators';
-import {Car} from '../../shared/model/car';
 
 @Component({
   selector: 'app-digger-detail',
@@ -10,17 +7,13 @@ import {Car} from '../../shared/model/car';
   styleUrls: ['./digger-detail.component.css']
 })
 export class DiggerDetailComponent implements OnInit {
+  carId: number;
 
-  car: Car;
-
-  constructor(private route: ActivatedRoute,
-              private carService: CarService) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.route.paramMap.pipe(
-      switchMap(params => this.carService.findByCarId(+params.get('id')))
-    ).subscribe(car => this.car = car);
+    this.route.paramMap.subscribe(
+      params => this.carId = +params.get('id'));
   }
-
 }

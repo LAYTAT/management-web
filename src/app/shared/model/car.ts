@@ -7,6 +7,9 @@ export interface Car {
   createdDate?: Date;
   liveUrl?: string;
   users?: User[];
+  current?: User;
+  startDate?: number;
+  totalTime?: number;
   snapshot?: Snapshot;
 }
 

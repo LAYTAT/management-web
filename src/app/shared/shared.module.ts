@@ -5,11 +5,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ImagePipe} from './pipe/image.pipe';
 import {GenderPipe} from './pipe/gender.pipe';
+import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
 
 @NgModule({
   declarations: [
     ImagePipe,
     GenderPipe,
+    ElapsedTimePipe,
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import {GenderPipe} from './pipe/gender.pipe';
     NgZorroAntdModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ElapsedTimePipe
   ],
   providers: [{
     provide: NZ_I18N,

@@ -1,35 +1,35 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Car} from '../../shared/model/car';
 import {CarService} from '../../shared/service/car.service';
+import {Car} from '../../shared/model/car';
 
 @Component({
   selector: 'app-car-profile',
   templateUrl: './car-profile.component.html',
   styleUrls: ['./car-profile.component.css']
 })
-export class CarProfileComponent implements OnInit, OnChanges {
+export class CarProfileComponent implements OnInit {
 
   @Input()
+  carId: number;
   car: Car;
-
   carForm: FormGroup;
   loading = false;
 
   constructor(private carService: CarService) {
     this.carForm = new FormGroup({
       liveUrl: new FormControl('', [Validators.required])
-    })
-    ;
+    });
   }
 
   ngOnInit() {
+    this.getCar();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.car.currentValue) {
-      this.carForm.get('liveUrl').setValue(changes.car.currentValue.liveUrl);
-    }
+  getCar(): void {
+    this.carService.findByCarId(this.carId).subscribe(
+      car => this.car = car
+    );
   }
 
   onSubmit(): void {

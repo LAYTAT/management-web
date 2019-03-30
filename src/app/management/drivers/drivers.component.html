@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end">
-  <button (click)="this.isVisible = true;"
+  <button (click)="isVisible = true;"
           [nzType]="'primary'"
           class="mb-3"
           nz-button>添加驾驶员
@@ -8,7 +8,7 @@
 <nz-modal [(nzVisible)]="isVisible"
           nzTitle="添加驾驶员"
           nzOkText="添加"
-          (nzOnCancel)="this.isVisible = false"
+          (nzOnCancel)="isVisible = false"
           (nzOnOk)="handleOk()"
           [nzOkLoading]="okLoading">
   <form nz-form [formGroup]="driverForm">
@@ -27,7 +27,7 @@
 <nz-table #driversTable
           [nzData]="drivers"
           [nzLoading]="loading"
-          [nzScroll]="{x:'600px'}">
+          [nzScroll]="{x:'600px',y:null}">
   <thead>
   <tr>
     <th [nzShowSort]="true"

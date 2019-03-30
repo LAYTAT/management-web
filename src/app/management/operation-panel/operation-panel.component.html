@@ -4,11 +4,29 @@
           nzType="warning">
 </nz-alert>
 <div class="d-flex">
-  <div style="width: 25%" class="mr-2">
-    <img *ngIf="car?.liveUrl;else elseBlock" alt="live" [src]="car.liveUrl" style="width: 100%">
+  <div class="d-flex flex-column" style="width: 22%">
+    <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" class="mb-2" style="width: 100%">
     <ng-template #elseBlock>
-      <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
+      <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
     </ng-template>
+    <app-timer [initialTime]="car?.totalTime" [paused]="!car?.startDate" [title]="'总运行时间'" class="mb-2"></app-timer>
+    <app-timer [initialTime]="runningTime" [paused]="!car?.startDate" [title]="'连续运行时间'"></app-timer>
   </div>
-  <app-model style="width: 75%"></app-model>
+  <div class="px-3" style="width: 56%">
+    <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
+    <!--  <app-model style="width: 100%"></app-model>-->
+    <div class="d-flex justify-content-center mt-3 mt-md-5">
+      <button (click)="startDrive()" [disabled]="car?.startDate" class="mr-4" nz-button
+              nzSize="large" nzType="primary">启动
+      </button>
+      <button (click)="finishDrive()" [disabled]="!car?.startDate" nz-button nzSize="large"
+              nzType="danger">停止
+      </button>
+    </div>
+  </div>
+  <div style="width: 22%">
+    <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
+    <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
+    <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
+  </div>
 </div>

@@ -1,5 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {User} from '../../shared/model/user';
+import {Component, Input, OnInit} from '@angular/core';
 import {CarService} from '../../shared/service/car.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Car} from '../../shared/model/car';
@@ -9,14 +8,15 @@ import {Car} from '../../shared/model/car';
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.css']
 })
-export class DriversComponent implements OnInit, OnChanges {
+export class DriversComponent implements OnInit {
 
   @Input()
+  carId: number;
   car: Car;
   isVisible = false;
   okLoading = false;
   loading = false;
-  drivers: User[] = [];
+  drivers = [];
 
   driverForm: FormGroup;
 
@@ -27,12 +27,13 @@ export class DriversComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.getCar();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.car.currentValue) {
-      this.drivers = changes.car.currentValue.users;
-    }
+  getCar(): void {
+    this.carService.findByCarId(this.carId).subscribe(
+      car => this.car = car
+    );
   }
 
   handleOk(): void {

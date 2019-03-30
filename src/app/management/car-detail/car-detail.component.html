@@ -1,12 +1,18 @@
 <nz-tabset>
   <nz-tab [nzTitle]="liveTitle">
-    <app-operation-panel [car]="car"></app-operation-panel>
+    <ng-template nz-tab>
+      <app-operation-panel [carId]="carId"></app-operation-panel>
+    </ng-template>
   </nz-tab>
   <nz-tab nzTitle="驾驶员">
-    <app-drivers [car]="car"></app-drivers>
+    <ng-template nz-tab>
+      <app-drivers [carId]="carId"></app-drivers>
+    </ng-template>
   </nz-tab>
   <nz-tab nzTitle="管理">
-    <app-car-profile [car]="car"></app-car-profile>
+    <ng-template nz-tab>
+      <app-car-profile [carId]="carId"></app-car-profile>
+    </ng-template>
   </nz-tab>
 </nz-tabset>
 <ng-template #liveTitle>
