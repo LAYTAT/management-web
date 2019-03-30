@@ -9,18 +9,20 @@
     <ng-template #elseBlock>
       <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
     </ng-template>
-    <app-timer [initialTime]="car?.totalTime" [paused]="!car?.startDate" [title]="'总运行时间'" class="mb-2"></app-timer>
-    <app-timer [initialTime]="runningTime" [paused]="!car?.startDate" [title]="'连续运行时间'"></app-timer>
+    <app-timer [initialTime]="car?.totalTime" [paused]="!car?.startDate"
+               [title]="'总运行时间'" class="mb-2"></app-timer>
+    <app-timer [initialTime]="runningTime" [paused]="!car?.startDate"
+               [title]="'连续运行时间'"></app-timer>
   </div>
   <div class="px-3" style="width: 56%">
     <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
     <!--  <app-model style="width: 100%"></app-model>-->
     <div class="d-flex justify-content-center mt-3 mt-md-5">
-      <button (click)="startDrive()" [disabled]="car?.startDate&&available" class="mr-4" nz-button
-              nzSize="large" nzType="primary">启动
+      <button (click)="startDrive()" [disabled]="car?.startDate&&available"
+              class="mr-4" nz-button nzSize="large" nzType="primary">启动
       </button>
-      <button (click)="finishDrive()" [disabled]="!car?.startDate&&available" nz-button nzSize="large"
-              nzType="danger">停止
+      <button (click)="finishDrive()" [disabled]="!car?.startDate&&available"
+              nz-button nzSize="large" nzType="danger">停止
       </button>
     </div>
   </div>

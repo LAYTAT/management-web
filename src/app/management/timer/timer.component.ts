@@ -9,7 +9,7 @@ export class TimerComponent implements OnInit, OnChanges {
   @Input()
   title: string;
   @Input()
-  initialTime = 0;
+  initialTime: number;
   @Input()
   paused = true;
 

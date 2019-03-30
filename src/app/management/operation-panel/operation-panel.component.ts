@@ -45,13 +45,15 @@ export class OperationPanelComponent implements OnInit {
 
   startDrive() {
     this.carService.startDrive(this.car.carId, this.currentUser.employeeId).subscribe(
-      car => this.car = car
-    );
+      car => {
+        this.car = car;
+        this.runningTime = new Date().getTime() - car.startDate + 1000;
+      });
   }
 
   finishDrive() {
+    this.runningTime = 0;
     this.carService.finishDrive(this.car.carId).subscribe(
-      car => this.car = car
-    );
+      car => this.car = car);
   }
 }
