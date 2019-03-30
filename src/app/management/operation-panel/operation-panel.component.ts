@@ -15,6 +15,7 @@ export class OperationPanelComponent implements OnInit {
   car: Car;
   currentUser: User;
   runningTime = 0;
+  available = false;
 
   constructor(private authService: AuthService,
               private carService: CarService) {
@@ -33,7 +34,11 @@ export class OperationPanelComponent implements OnInit {
     this.carService.findByCarId(this.carId).subscribe(
       car => {
         this.car = car;
-        this.runningTime = new Date().getTime() - this.car.startDate;
+        if (car.startDate) {
+          this.runningTime = new Date().getTime() - car.startDate;
+        }
+        this.available = !car.currentUser ||
+          car.currentUser.employeeId === this.currentUser.employeeId;
       }
     );
   }
