@@ -7,7 +7,7 @@ export interface Car {
   createdDate?: Date;
   liveUrl?: string;
   users?: User[];
-  currentUser?: User;
+  currentDriver?: User;
   startDate?: number;
   totalTime?: number;
   snapshot?: Snapshot;

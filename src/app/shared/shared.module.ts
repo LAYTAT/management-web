@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ImagePipe} from './pipe/image.pipe';
 import {GenderPipe} from './pipe/gender.pipe';
 import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
+import {GaugesModule} from 'ng-beautiful-gauges';
 
 @NgModule({
   declarations: [
@@ -18,17 +19,19 @@ import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
     NgZorroAntdModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GaugesModule
   ],
   exports: [
     ImagePipe,
     GenderPipe,
+    ElapsedTimePipe,
     CommonModule,
     NgZorroAntdModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ElapsedTimePipe
+    GaugesModule
   ],
   providers: [{
     provide: NZ_I18N,

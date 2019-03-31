@@ -37,8 +37,8 @@ export class OperationPanelComponent implements OnInit {
         if (car.startDate) {
           this.runningTime = new Date().getTime() - car.startDate;
         }
-        this.available = !car.currentUser ||
-          car.currentUser.employeeId === this.currentUser.employeeId;
+        this.available = !this.car.currentDriver ||
+          this.car.currentDriver.employeeId === this.currentUser.employeeId;
       }
     );
   }
@@ -47,7 +47,7 @@ export class OperationPanelComponent implements OnInit {
     this.carService.startDrive(this.car.carId, this.currentUser.employeeId).subscribe(
       car => {
         this.car = car;
-        this.runningTime = new Date().getTime() - car.startDate + 1000;
+        this.runningTime = new Date().getTime() - car.startDate;
       });
   }
 

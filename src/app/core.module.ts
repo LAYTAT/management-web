@@ -16,6 +16,8 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [],
   imports: [
+    UserModule,
+    AppRoutingModule,
     MqttModule.forRoot({
       hostname: environment.mqttHostname,
       port: environment.mqttPort,
@@ -29,12 +31,8 @@ registerLocaleData(zh);
         skipWhenExpired: true
       }
     }),
-    UserModule,
-    AppRoutingModule
   ],
   exports: [
-    MqttModule,
-    JwtModule,
     UserModule,
     AppRoutingModule
   ]
