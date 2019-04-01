@@ -16,7 +16,7 @@
   </div>
   <div class="px-3" style="width: 56%">
     <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
-    <!--  <app-model style="width: 100%"></app-model>-->
+    <!--    <app-model></app-model>-->
     <div class="d-flex justify-content-center mt-3 mt-md-5">
       <button (click)="startDrive()" [disabled]="car?.startDate||!available"
               class="mr-4" nz-button nzSize="large" nzType="primary">启动
@@ -27,14 +27,13 @@
     </div>
   </div>
   <div style="width: 22%">
-    <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
-    <nz-card class="mb-2" nzTitle="驾驶员信息">
+    <nz-card class="mb-4" nzTitle="驾驶员信息">
       <div class="d-flex justify-content-center">
         <div *ngIf="!car?.currentDriver;else busy">
           无人使用
         </div>
         <ng-template #busy>
-          <nz-avatar class="mr-3" nzIcon="user" nzSize="large"></nz-avatar>
+          <nz-avatar class="mr-4" nzIcon="user" nzSize="large"></nz-avatar>
           <div>
             <strong>{{car.currentDriver.name}}</strong>
             <div>工号：{{car.currentDriver.employeeId}}</div>
@@ -42,6 +41,9 @@
         </ng-template>
       </div>
     </nz-card>
+    <div class="d-flex justify-content-center mb-3">
+      <app-battery-indicator></app-battery-indicator>
+    </div>
     <div class="d-flex justify-content-center">
       <app-speedometer></app-speedometer>
     </div>

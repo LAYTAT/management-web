@@ -14,7 +14,7 @@ export class SpeedometerComponent implements OnInit {
 
   ngOnInit(): void {
     setInterval(() => {
-      this.value = Math.random() * 60;
+      this.value = Math.random() * 120;
     }, 500);
   }
 }

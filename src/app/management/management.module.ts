@@ -19,6 +19,7 @@ import {DiggerListComponent} from './car-list/digger-list/digger-list.component'
 import {ModelComponent} from './model/model.component';
 import {TimerComponent} from './timer/timer.component';
 import {SpeedometerComponent} from './speedometer/speedometer.component';
+import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {SpeedometerComponent} from './speedometer/speedometer.component';
     CarListComponent,
     ModelComponent,
     TimerComponent,
-    SpeedometerComponent
+    SpeedometerComponent,
+    BatteryIndicatorComponent
   ],
   imports: [
     ManagementRoutingModule,
