@@ -3,33 +3,29 @@
           nzShowIcon
           nzType="warning">
 </nz-alert>
-<div class="d-flex">
-  <div class="d-flex flex-column" style="width: 22%">
-    <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" class="mb-2" style="width: 100%">
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" class="mb-3" style="width: 100%">
     <ng-template #elseBlock>
-      <img alt="live" class="mb-2" src="https://via.placeholder.com/320x240" style="width: 100%">
+      <img alt="live" class="mb-3" src="https://via.placeholder.com/320x240" style="width: 100%">
     </ng-template>
     <app-timer [initialTime]="car?.totalTime" [paused]="!car?.startDate"
                [title]="'总运行时间'" class="mb-2"></app-timer>
-    <app-timer [initialTime]="runningTime" [paused]="!car?.startDate"
-               [title]="'连续运行时间'"></app-timer>
   </div>
-  <div class="px-3" style="width: 56%">
+  <div class="col-md-6 mb-3">
     <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
     <!--    <app-model></app-model>-->
-    <div class="d-flex justify-content-center mt-3 mt-md-5">
-      <button (click)="startDrive()" [disabled]="car?.startDate||!available"
-              class="mr-4" nz-button nzSize="large" nzType="primary">启动
-      </button>
-      <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
-              nz-button nzSize="large" nzType="danger">停止
-      </button>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+      <app-battery-indicator class="mr-5"></app-battery-indicator>
+      <app-speedometer></app-speedometer>
     </div>
   </div>
-  <div style="width: 22%">
-    <nz-card class="mb-4" nzTitle="驾驶员信息">
+  <div class="col-md-3">
+    <app-timer [initialTime]="runningTime" [paused]="!car?.startDate"
+               [title]="'连续运行时间'"></app-timer>
+    <nz-card class="my-4" nzTitle="当前驾驶员信息">
       <div class="d-flex justify-content-center">
-        <div *ngIf="!car?.currentDriver;else busy">
+        <div *ngIf="!car?.currentDriver;else busy" class="py-2">
           无人使用
         </div>
         <ng-template #busy>
@@ -41,11 +37,13 @@
         </ng-template>
       </div>
     </nz-card>
-    <div class="d-flex justify-content-center mb-3">
-      <app-battery-indicator></app-battery-indicator>
-    </div>
     <div class="d-flex justify-content-center">
-      <app-speedometer></app-speedometer>
+      <button (click)="startDrive()" [disabled]="car?.startDate||!available"
+              class="mr-4" nz-button nzSize="large" nzType="primary">启动
+      </button>
+      <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
+              nz-button nzSize="large" nzType="danger">停止
+      </button>
     </div>
   </div>
 </div>
