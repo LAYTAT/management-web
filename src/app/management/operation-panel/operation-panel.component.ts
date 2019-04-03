@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Car} from '../../shared/model/car';
 import {AuthService} from '../../shared/service/auth.service';
 import {CarService} from '../../shared/service/car.service';
@@ -10,6 +10,9 @@ import {User} from '../../shared/model/user';
   styleUrls: ['./operation-panel.component.css']
 })
 export class OperationPanelComponent implements OnInit {
+  @ViewChild('container')
+  containerRef: ElementRef;
+  container: HTMLElement;
   @Input()
   carId: number;
   car: Car;
@@ -22,6 +25,7 @@ export class OperationPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.container = this.containerRef.nativeElement;
     this.getCurrentUser();
     this.getCar();
   }
@@ -44,6 +48,7 @@ export class OperationPanelComponent implements OnInit {
   }
 
   startDrive() {
+    this.launchFullScreen(this.container);
     this.carService.startDrive(this.car.carId, this.currentUser.employeeId).subscribe(
       car => {
         this.car = car;
@@ -52,8 +57,19 @@ export class OperationPanelComponent implements OnInit {
   }
 
   finishDrive() {
+    this.exitFullscreen();
     this.runningTime = 0;
     this.carService.finishDrive(this.car.carId).subscribe(
       car => this.car = car);
+  }
+
+  launchFullScreen(element: HTMLElement) {
+    element.requestFullscreen();
+  }
+
+  exitFullscreen() {
+    if (document.fullscreen) {
+      document.exitFullscreen();
+    }
   }
 }
