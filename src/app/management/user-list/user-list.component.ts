@@ -5,6 +5,8 @@ import {Gender, User} from '../../shared/model/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {NzMessageService, UploadFile} from 'ng-zorro-antd';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -31,7 +33,8 @@ export class UserListComponent implements OnInit {
 
   searchTerms = new BehaviorSubject<string>('');
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private messageService: NzMessageService) {
     this.userForm = new FormGroup({
       employeeId: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
@@ -108,5 +111,20 @@ export class UserListComponent implements OnInit {
     this.userService.deleteByEmployeeId(employeeId).subscribe();
     this.users = this.users.filter(
       driver => driver.employeeId !== employeeId);
+  }
+
+  handleChange(info: { file: UploadFile }): void {
+    switch (info.file.status) {
+      case 'done':
+        this.messageService.success('上传成功');
+        break;
+      case 'error':
+        this.messageService.error('上传失败');
+        break;
+    }
+  }
+
+  getUploadUrl(employeeId: number) {
+    return `${environment.apiUrl}/files/avatars/${employeeId}`;
   }
 }

@@ -8,14 +8,13 @@
 </nz-breadcrumb>
 <div class="mb-4 row">
   <div class="col-4 col-md-6 col-lg-7">
-    <button (click)="this.isVisible = true"
-            [nzType]="'primary'"
+    <button (click)="isVisible = true" nzType="primary"
             nz-button>添加{{name}}
     </button>
     <nz-modal [(nzVisible)]="isVisible"
               nzTitle="车辆信息"
               nzOkText="添加"
-              (nzOnCancel)="this.isVisible = false"
+              (nzOnCancel)="isVisible = false"
               (nzOnOk)="addCar()"
               [nzOkLoading]="okLoading">
       <form nz-form [formGroup]="carForm">

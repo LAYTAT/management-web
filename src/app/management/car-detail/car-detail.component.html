@@ -1,5 +1,5 @@
 <nz-tabset>
-  <nz-tab [nzTitle]="liveTitle">
+  <nz-tab nzTitle="操作面板">
     <ng-template nz-tab>
       <app-operation-panel [carId]="carId"></app-operation-panel>
     </ng-template>
@@ -15,6 +15,3 @@
     </ng-template>
   </nz-tab>
 </nz-tabset>
-<ng-template #liveTitle>
-  <i nz-icon type="play-circle" theme="outline"></i> Live
-</ng-template>

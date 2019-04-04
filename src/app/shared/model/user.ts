@@ -1,4 +1,5 @@
 import {Role} from './role';
+import {File} from './file';
 
 export interface User {
   employeeId: number;
@@ -9,6 +10,7 @@ export interface User {
   age: number;
   createdDate?: Date;
   roles?: Role[];
+  avatar?: File;
 }
 
 export enum Gender {

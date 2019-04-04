@@ -7,8 +7,6 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 })
 export class TimerComponent implements OnInit, OnChanges {
   @Input()
-  title: string;
-  @Input()
   initialTime: number;
   @Input()
   paused = true;
