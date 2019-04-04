@@ -3,8 +3,8 @@
           nzShowIcon
           nzType="warning">
 </nz-alert>
-<div #container [nzGutter]="{ xs: 8, sm: 8, md: 12, lg: 16, xl: 20, xxl: 23 }" class="pt-xl-3"
-     nz-row style="background-color: #f0f2f5">
+<div #container [nzGutter]="{ xs: 8, sm: 8, md: 12, lg: 16, xl: 20, xxl: 23 }"
+     class="pt-3" nz-row style="background-color: #f0f2f5">
   <div class="mb-4" nz-col nzLg="5" nzMd="6">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle" class="mb-4" nzBordered nzHoverable>
       <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" style="width: 100%">

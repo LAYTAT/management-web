@@ -17,5 +17,4 @@ export class PushdozerDetailComponent implements OnInit {
     this.route.paramMap.subscribe(
       params => +params.get('id'));
   }
-
 }

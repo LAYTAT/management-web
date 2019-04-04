@@ -28,7 +28,10 @@ export class CarProfileComponent implements OnInit {
 
   getCar(): void {
     this.carService.findByCarId(this.carId).subscribe(
-      car => this.car = car
+      car => {
+        this.car = car;
+        this.carForm.get('liveUrl').setValue(car.liveUrl);
+      }
     );
   }
 
