@@ -7,12 +7,14 @@ import {ImagePipe} from './pipe/image.pipe';
 import {GenderPipe} from './pipe/gender.pipe';
 import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
 import {GaugesModule} from 'ng-beautiful-gauges';
+import {CarPipe} from './pipe/car.pipe';
 
 @NgModule({
   declarations: [
     ImagePipe,
     GenderPipe,
     ElapsedTimePipe,
+    CarPipe,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import {GaugesModule} from 'ng-beautiful-gauges';
   exports: [
     ImagePipe,
     GenderPipe,
+    CarPipe,
     ElapsedTimePipe,
     CommonModule,
     NgZorroAntdModule,
