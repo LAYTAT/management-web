@@ -3,6 +3,7 @@ import {Car} from '../../shared/model/car';
 import {AuthService} from '../../shared/service/auth.service';
 import {CarService} from '../../shared/service/car.service';
 import {User} from '../../shared/model/user';
+import {BigScreenService} from 'angular-bigscreen';
 
 @Component({
   selector: 'app-operation-panel',
@@ -21,7 +22,8 @@ export class OperationPanelComponent implements OnInit {
   available = false;
 
   constructor(private authService: AuthService,
-              private carService: CarService) {
+              private carService: CarService,
+              private bigScreenService: BigScreenService) {
   }
 
   ngOnInit() {
@@ -64,12 +66,12 @@ export class OperationPanelComponent implements OnInit {
   }
 
   launchFullScreen(element: HTMLElement) {
-    element.requestFullscreen();
+    this.bigScreenService.request(element);
   }
 
   exitFullscreen() {
-    if (document.fullscreen) {
-      document.exitFullscreen();
+    if (this.bigScreenService.isFullscreen()) {
+      this.bigScreenService.exit();
     }
   }
 }

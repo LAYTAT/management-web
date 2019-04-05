@@ -8,6 +8,7 @@ import {GenderPipe} from './pipe/gender.pipe';
 import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
 import {GaugesModule} from 'ng-beautiful-gauges';
 import {CarPipe} from './pipe/car.pipe';
+import {BigScreenModule} from 'angular-bigscreen';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {CarPipe} from './pipe/car.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GaugesModule
+    GaugesModule,
+    BigScreenModule
   ],
   exports: [
     ImagePipe,
@@ -34,7 +36,8 @@ import {CarPipe} from './pipe/car.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GaugesModule
+    GaugesModule,
+    BigScreenModule
   ],
   providers: [{
     provide: NZ_I18N,
