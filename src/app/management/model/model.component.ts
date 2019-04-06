@@ -1,14 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PerspectiveCamera, Scene, Vector3, WebGLRenderer} from 'three';
 import {OrbitControls} from 'three-orbitcontrols-ts';
 import {Digger} from './digger/digger';
-import {ResizeService} from '../../shared/service/resize.service';
 import {KeyboardEventService} from '../../shared/service/keyboard-event.service';
 import {Controller} from './controller';
 import {Ambient} from './ambient/ambient';
+import {fromEvent} from 'rxjs';
+import {map, throttleTime} from 'rxjs/operators';
 
 const CLEAR_COLOR_HEX = 0xc7edcc; // 渲染的背景色
-const WINDOW_TIMES = 0.75; // 窗口实际比例
 const WINDOW_SCALE = 1.3; // 窗口缩放比
 
 @Component({
@@ -16,9 +16,11 @@ const WINDOW_SCALE = 1.3; // 窗口缩放比
   templateUrl: './model.component.html',
   styleUrls: ['./model.component.css']
 })
-export class ModelComponent implements OnInit {
-  @ViewChild('statsOutput') statsRef: ElementRef;
-  @ViewChild('modelOutput') modelRef: ElementRef;
+export class ModelComponent implements OnInit, AfterViewInit {
+  @ViewChild('statsOutput')
+  statsRef: ElementRef;
+  @ViewChild('modelOutput')
+  modelRef: ElementRef;
 
   private controller: Controller;
   private statsContainer: HTMLElement;
@@ -29,20 +31,27 @@ export class ModelComponent implements OnInit {
   private orbit: OrbitControls;
   private digger: Digger;
 
-  constructor(private keyboardEventService: KeyboardEventService,
-              private resizeService: ResizeService) {
+  constructor(private keyboardEventService: KeyboardEventService) {
   }
 
   ngOnInit() {
     this.statsContainer = this.statsRef.nativeElement;
     this.modelContainer = this.modelRef.nativeElement;
+  }
+
+  ngAfterViewInit(): void {
     this.initialize();
     this.controller = new Controller(this.digger, this.keyboardEventService);
     this.controller.subscribeKeyDown();
     this.controller.subscribeKeyUp();
-    this.resizeService.width$.subscribe(
-      width => this.onResize(width * WINDOW_TIMES)
-    );
+    this.subscribeModelWidth();
+  }
+
+  subscribeModelWidth(): void {
+    fromEvent(window, 'resize').pipe(
+      throttleTime(100),
+      map(() => this.modelContainer.offsetWidth)
+    ).subscribe(width => this.onResize(width));
   }
 
   initialize(): void {
@@ -56,7 +65,7 @@ export class ModelComponent implements OnInit {
     this.scene.add(this.camera);
 
     // 添加轨迹球控件
-    this.orbit = new OrbitControls(this.camera);
+    this.orbit = new OrbitControls(this.camera, this.modelContainer);
     this.orbit.minPolarAngle = Math.PI / 6;  // 俯角
     this.orbit.maxPolarAngle = 2 * Math.PI / 5; // 仰角
     this.orbit.enableZoom = true;
@@ -67,7 +76,8 @@ export class ModelComponent implements OnInit {
     this.renderer = new WebGLRenderer();
     this.renderer.setClearColor(CLEAR_COLOR_HEX);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.setSize(window.innerWidth * WINDOW_TIMES, window.innerWidth * WINDOW_TIMES / WINDOW_SCALE);
+    this.renderer.setSize(this.modelContainer.offsetWidth,
+      this.modelContainer.offsetWidth / WINDOW_SCALE);
 
     // 添加场景物体
     this.digger = new Digger(this.scene);

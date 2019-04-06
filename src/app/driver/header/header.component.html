@@ -1,5 +1,5 @@
-<div class="d-flex align-items-center container-fluid px-lg-4 px-xl-5">
-  <a [routerLink]="['/']" class="brand mr-auto">工地管理系统</a>
+<div class="d-flex align-items-center">
+  <a [routerLink]="['/']" class="brand mr-auto">我的车辆</a>
   <button
     [nzContent]="popoverTemplate"
     [nzOverlayClassName]="'popover'"
@@ -14,7 +14,8 @@
 </div>
 <ng-template #popoverTemplate>
   <div class="d-flex align-items-center px-4 py-3">
-    <nz-avatar class="mr-3" nzIcon="user" nzSize="large"></nz-avatar>
+    <nz-avatar [nzSrc]="currentUser.avatar.id|image" class="mr-3" nzSize="large">
+    </nz-avatar>
     <div>
       <strong>{{currentUser.name}}</strong>
       <div>工号：{{currentUser.employeeId}}</div>

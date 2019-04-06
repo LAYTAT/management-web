@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/service/auth.service';
 import {User} from '../../shared/model/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
   currentUser: User;
   isBoss: boolean;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -21,6 +23,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/users/login']);
   }
 
   getCurrentUser(): void {

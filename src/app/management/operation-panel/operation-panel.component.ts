@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Car} from '../../shared/model/car';
 import {AuthService} from '../../shared/service/auth.service';
 import {CarService} from '../../shared/service/car.service';
@@ -10,7 +10,7 @@ import {BigScreenService} from 'angular-bigscreen';
   templateUrl: './operation-panel.component.html',
   styleUrls: ['./operation-panel.component.css']
 })
-export class OperationPanelComponent implements OnInit {
+export class OperationPanelComponent implements OnInit, OnChanges {
   @ViewChild('container')
   containerRef: ElementRef;
   container: HTMLElement;
@@ -29,7 +29,12 @@ export class OperationPanelComponent implements OnInit {
   ngOnInit() {
     this.container = this.containerRef.nativeElement;
     this.getCurrentUser();
-    this.getCar();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.carId.currentValue) {
+      this.getCar();
+    }
   }
 
   getCurrentUser(): void {

@@ -3,9 +3,8 @@
           nzShowIcon
           nzType="warning">
 </nz-alert>
-<div #container [nzGutter]="{ xs: 8, sm: 8, md: 12, lg: 16, xl: 20, xxl: 23 }"
-     class="pt-3" nz-row style="background-color: #f0f2f5">
-  <div class="mb-4" nz-col nzLg="5" nzMd="24">
+<div #container class="pt-3 row" style="background-color: #f0f2f5">
+  <div class="mb-4 col-sm-12 col-lg-3">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle"
              class="mb-4 card">
       <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" style="width: 100%">
@@ -31,7 +30,7 @@
       </ng-template>
     </nz-card>
   </div>
-  <div class="mb-3" nz-col nzLg="14" nzMd="24">
+  <div class="mb-3 col-sm-12 col-lg-6">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="modelTitle" class="card mb-5">
       <!-- <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%"> -->
       <app-model></app-model>
@@ -50,7 +49,7 @@
       </button>
     </div>
   </div>
-  <div nz-col nzLg="5" nzMd="24">
+  <div class="col-sm-12 col-lg-3">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle"
              class="mb-3 card">
       <div *ngIf="!car?.currentDriver;else busy" class="p-4">
