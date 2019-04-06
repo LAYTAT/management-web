@@ -1,18 +1,20 @@
-/*
+/**
  * 作者：郑庆文
  * 时间：2019-03-24
  * 邮箱：quinceyzheng@126.com
- * 说明：这是底盘模型模块的定义文件
+ * 说明：底盘模块的定义文件
  */
 
-import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {CylinderGeometry, ExtrudeGeometry, Geometry, Mesh, MeshPhongMaterial, Object3D, Shape, Texture, TextureLoader} from 'three';
 import {Common} from '../common';
 import {BodyModule} from './body';
-import {MainBody} from './mainbody';
-import {Digger} from './digger';
 
-// 底盘类
+/* 底盘模块类 */
 export class Chassis extends BodyModule {
+  // 路标和材质
+  private guideMaterial: MeshPhongMaterial;
+  private guide: Mesh;
+
   // 初始化对象时设置一些初始值
   constructor() {
     super();
@@ -21,65 +23,118 @@ export class Chassis extends BodyModule {
     this.clockwise = true;
   }
 
-  private drawTrack(halfLength: number, halfHeight: number): Shape {
-    const shape = new Shape();
-    shape.moveTo(-halfLength, halfHeight);
-    shape.lineTo(halfLength, halfHeight);
-    shape.arc(0, -halfHeight, halfHeight, Math.PI / 2, -Math.PI / 2, true);
-    shape.lineTo(-halfLength, -halfHeight);
-    shape.arc(0, halfHeight, halfHeight, Math.PI / 2, 3 * Math.PI / 2, false);
-    return shape;
+  // 前进
+  moveForward(): void {
+    this.guideMaterial.opacity = 0.7;
+    this.guide.rotation.y = 0;
   }
 
-  private drawConnector(halfBottomWidth: number, halfTopWidth: number, halfHeight: number): Shape {
-    const shape = new Shape();
-    shape.moveTo(-halfBottomWidth, 0);
-    shape.lineTo(halfBottomWidth, 0);
-    shape.lineTo(halfBottomWidth, halfHeight);
-    shape.lineTo(halfTopWidth, 2 * halfHeight);
-    shape.lineTo(-halfTopWidth, 2 * halfHeight);
-    shape.lineTo(-halfBottomWidth, halfHeight);
-    shape.lineTo(-halfBottomWidth, 0);
-    return shape;
+  // 后退
+  moveBackward(): void {
+    this.guideMaterial.opacity = 0.7;
+    this.guide.rotation.y = Math.PI;
   }
 
-  // 接口方法
-  modeling(digger: Digger): void {
-    const geometry = new Geometry(); // 几何形状的组合体
-    const material = new MeshPhongMaterial({color: 0x383838}); // 底盘材质
-    const trackWidth = 1.6; // 履带的内宽
+  // 停止
+  stopMotion(): void {
+    this.guideMaterial.opacity = 0;
+  }
 
-    // 构建履带：拉伸法
-    const options = {
-      amount: 0.6, // 履带宽度
-      bevelEnabled: false, // 禁止斜角
-      curveSegments: 20 // 履带曲率
+  // 父类方法
+  modeling(): void {
+    // 声明常量
+    const mainUnit = 0.3; // 0.3
+    const axisRadius = mainUnit * 3;
+    const axisHeight = mainUnit;
+    const pipeLength = mainUnit * 2;
+    const trackLength = mainUnit * 2;
+    const guideLength = mainUnit * 2;
+
+    // 定义底盘的形体和材质纹理
+    const geometry = new Geometry();
+    const material = new MeshPhongMaterial({shininess: 100});
+    material.map = (new TextureLoader()).load('./assets/textures/black.jpg',
+      function (texture: Texture): void {
+        material.map = texture;
+      });
+
+    // 添加轴承
+    const axis = new CylinderGeometry(axisRadius, axisRadius, axisHeight,
+      30, 1, false);
+    axis.translate(0, axisHeight / 2 + pipeLength, 0);
+    geometry.merge(axis);
+
+    // 定义拉伸属性
+    const extrude = {
+      amount: pipeLength,
+      bevelEnabled: false,
+      curveSegments: 20
     };
-    const trackGeometry = new ExtrudeGeometry(this.drawTrack(1.5, 0.3), options); // 履带半长和半高
-    const trackR = Common.createMesh(trackGeometry, null, 0, 0.3, trackWidth / 2);
-    GeometryUtils.merge(geometry, trackR);
-    const trackL = Common.createMesh(trackGeometry, null, 0, 0.3, -trackWidth / 2 - 0.6);
-    GeometryUtils.merge(geometry, trackL);
 
-    // 构建中间件：拉伸法
-    options.amount = trackWidth; // 中间件长度
-    const connectorGeometry = new ExtrudeGeometry(this.drawConnector(1.2, 0.6, 0.2), options);
-    const connector = Common.createMesh(connectorGeometry, null, 0, 0.2, -trackWidth / 2);
-    GeometryUtils.merge(geometry, connector);
+    // 添加连接管道
+    const pipe = new ExtrudeGeometry(this.getPipeShape(mainUnit), extrude);
+    pipe.rotateY(-Math.PI / 2);
+    pipe.rotateZ(-Math.PI / 2);
+    geometry.merge(pipe);
 
-    // 构建承轴：简单几何体
-    const axisGeometry = new CylinderGeometry(0.3, 0.3, 0.2, 20, 1, false);
-    const axis = Common.createMesh(axisGeometry, null, 0, 0.7, 0);
-    GeometryUtils.merge(geometry, axis);
+    // 添加履带
+    extrude.amount = trackLength;
+    const trackL = new ExtrudeGeometry(this.getTrackShape(mainUnit), extrude);
+    trackL.translate(0, mainUnit, mainUnit * 3.5);
+    geometry.merge(trackL);
+    const trackR = trackL.clone();
+    trackR.translate(0, 0, -7 * mainUnit - trackLength);
+    geometry.merge(trackR);
 
+    // 添加路标
+    extrude.amount = guideLength;
+    const guideGeometry = new ExtrudeGeometry(this.getGuideShape(mainUnit), extrude);
+    guideGeometry.translate(0.5 * mainUnit, 0, -guideLength / 2);
+    this.guideMaterial = new MeshPhongMaterial({color: 0x3388ff, opacity: 0, transparent: true});
+    this.guide = Common.createMesh(guideGeometry, this.guideMaterial, 0, 5 * mainUnit, 9 * mainUnit);
+    this.guide.castShadow = false;
+
+    // 合成物体
     this.model = new Object3D();
-    this.model.add(new Mesh(geometry, material));
+    this.model.add(Common.createMesh(geometry, material));
+    this.model.add(this.guide);
+    this.model.position.set(0, 0.5 * mainUnit, 0);
+  }
 
-    // 添加主体对象
-    const mainBody = new MainBody();
-    mainBody.modeling(digger);
-    this.model.add(mainBody.model);
-    digger.setChassis(this);
+  // 获取连接管道的形状
+  private getPipeShape(u: number): Shape {
+    const shape = new Shape();
+    shape.moveTo(-3.5 * u, 4 * u);
+    shape.quadraticCurveTo(0, 2.5 * u, 3.5 * u, 4 * u);
+    shape.lineTo(3.5 * u, -4 * u);
+    shape.quadraticCurveTo(0, -2.5 * u, -3.5 * u, -4 * u);
+    shape.lineTo(-3.5 * u, 4 * u);
+    return shape;
+  }
+
+  // 获取履带的形状
+  private getTrackShape(u: number): Shape {
+    const shape = new Shape();
+    shape.moveTo(-6 * u, -1.5 * u);
+    shape.arc(0, 1.5 * u, 1.5 * u, 1.5 * Math.PI, 0.5 * Math.PI, true);
+    shape.quadraticCurveTo(0, 2.5 * u, 6 * u, 1.5 * u);
+    shape.arc(0, -1.5 * u, 1.5 * u, Math.PI / 2, -Math.PI / 2, true);
+    shape.lineTo(-6 * u, -1.5 * u);
+    return shape;
+  }
+
+  // 获取路标的形状
+  private getGuideShape(u: number): Shape {
+    const shape = new Shape();
+    shape.moveTo(-4 * u, -u);
+    shape.lineTo(-4 * u, u);
+    shape.lineTo(0, u);
+    shape.lineTo(-u, 3 * u);
+    shape.lineTo(3 * u, 0);
+    shape.lineTo(-u, -3 * u);
+    shape.lineTo(0, -u);
+    shape.lineTo(-4 * u, -u);
+    return shape;
   }
 
 }

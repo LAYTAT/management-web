@@ -1,69 +1,100 @@
-/*
+/**
  * 作者：郑庆文
  * 时间：2019-03-24
  * 邮箱：quinceyzheng@126.com
- * 说明：这是中臂模型模块的定义文件
+ * 说明：中臂模块的定义文件
  */
 
-import {CylinderGeometry, ExtrudeGeometry, Geometry, GeometryUtils, Mesh, MeshPhongMaterial, Object3D, Shape} from 'three';
+import {
+  CylinderGeometry,
+  ExtrudeGeometry,
+  Geometry,
+  MeshPhongMaterial,
+  Object3D,
+  Shape,
+  SphereGeometry,
+  Texture,
+  TextureLoader
+} from 'three';
 import {Common} from '../common';
-import {Bucket} from './bucket';
 import {ArmsModule} from './arms';
-import {Digger} from './digger';
 
-// 中臂类
+/* 中臂模块类 */
 export class MiddleArm extends ArmsModule {
   // 初始化对象时设置一些初始值
   constructor() {
     super();
-    this.maxAngle = 1;
-    this.minAngle = -0.1;
+    this.maxAngle = 1.2;
+    this.minAngle = -0.2;
     this.speed = 0.006;
     this.rotates = 0;
     this.clockwise = true;
   }
 
-  private drawMainPart(length: number, bulge: number, topRadius: number, bottomRadius: number): Shape {
-    const shape = new Shape();
-    shape.moveTo(0, 0);
-    shape.lineTo(0, length);
-    shape.lineTo(2 * bulge / 3, length + bulge);
-    shape.arc(topRadius, 0, topRadius, Math.PI, 0, true);
-    shape.lineTo(2 * bottomRadius, 0);
-    shape.arc(-bottomRadius, 0, bottomRadius, Math.PI, 2 * Math.PI, false);
-    return shape;
+  // 父类方法
+  modeling(): void {
+    // 声明常量
+    const mainRadius = 0.12; // 0.12
+    const mainLength = mainRadius * 3;
+    const axisRadius = mainRadius * 0.7;
+    const axisHeight = mainLength * 1.8;
+    const nutRadius = axisRadius * 0.8;
+
+    // 定义中臂的形体和材质纹理
+    const geometry = new Geometry();
+    const material = new MeshPhongMaterial({shininess: 100});
+    material.map = (new TextureLoader()).load('./assets/textures/yellow.jpg',
+      function (texture: Texture): void {
+        material.map = texture;
+      });
+
+    // 添加轴承
+    const axis = new CylinderGeometry(axisRadius, axisRadius, axisHeight,
+      20, 1, false);
+    axis.rotateX(Math.PI / 2);
+    geometry.merge(axis);
+
+    // 添加螺帽
+    const nutR = new SphereGeometry(nutRadius, 10, 10);
+    nutR.translate(0, 0, 0.3 * (axisHeight + mainLength));
+    geometry.merge(nutR); // 右螺帽
+    const nutL = nutR.clone();
+    nutL.translate(0, 0, -0.6 * (axisHeight + mainLength));
+    geometry.merge(nutL); // 左螺帽
+
+    // 定义拉伸属性
+    const extrude = {
+      amount: mainLength,
+      curveSegments: 30,
+      bevelEnabled: false
+    };
+
+    // 添加中臂主体
+    const main = new ExtrudeGeometry(this.getMainShape(mainRadius), extrude);
+    main.translate(0, 0, -mainLength / 2);
+    geometry.merge(main);
+
+    // 合成物体
+    this.model = new Object3D();
+    this.model.add(Common.createMesh(geometry, material));
+    this.model.position.set(46.33 * mainRadius, 15 * mainRadius, 0);
   }
 
-  // 接口方法
-  modeling(digger: Digger): void {
-    const geometry = new Geometry(); // 几何形状的组合体
-    const material = new MeshPhongMaterial({color: 0xcfbc58}); // 短臂材质
-
-    // 构建主体部分
-    const options = {
-      amount: 0.2, // 宽度
-      bevelEnabled: false, //
-      curveSegments: 20 //
-    };
-    const mainPartGeometry = new ExtrudeGeometry(this.drawMainPart(1.8, 0.6, 0.1, 0.15), options);
-    const mainPart = Common.createMesh(mainPartGeometry, null, -0.1, -1.8, -0.1);
-    GeometryUtils.merge(geometry, mainPart);
-
-    // 构建连接件
-    const connectorGeometry = new CylinderGeometry(0.04, 0.04, 0.44, 20, 1, false);
-    const connector = Common.createMesh(connectorGeometry, null, 0, 0, 0); // 3.6 3 0.2
-    connector.rotation.x = Math.PI / 2;
-    GeometryUtils.merge(geometry, connector);
-
-    this.model = new Object3D();
-    this.model.add(new Mesh(geometry, material));
-
-    // 添加挖斗对象
-    const bucket = new Bucket();
-    bucket.modeling(digger);
-    this.model.add(bucket.model);
-    this.model.position.set(2.6, 2, 0);
-    digger.setMiddleArm(this);
+  // 获取主体的形状
+  private getMainShape(r: number): Shape {
+    const hST = 0.7071 * r; // half of sqrt of two of r
+    const shape = new Shape();
+    shape.moveTo(0, 0);
+    shape.arc(0, 0, r, Math.PI, 5 * Math.PI / 6, true);
+    shape.lineTo(0, 2 * r);
+    shape.lineTo(r, 3 * r);
+    shape.arc(hST, -hST, r, 0.75 * Math.PI, 0.25 * Math.PI, true);
+    shape.lineTo(3.4142 * r, r);
+    shape.arc(-hST, -hST, r, 0.25 * Math.PI, -Math.PI / 10, true);
+    shape.lineTo(r, -20 * r);
+    shape.arc(-r, 0, r, 0, -Math.PI, true);
+    shape.lineTo(-r, 0);
+    return shape;
   }
 
 }

@@ -1,14 +1,14 @@
-/*
+/**
  * 作者：郑庆文
  * 时间：2019-03-24
  * 邮箱：quinceyzheng@126.com
- * 说明：这是主体模型模块的定义文件
+ * 说明：主体各模块的定义文件
  */
 
 import {Object3D} from 'three';
 import {DiggerModule} from './module';
-import {Digger} from './digger';
 
+/* 主体各模块的父类 */
 export abstract class BodyModule implements DiggerModule {
   // 接口属性
   speed: number;
@@ -17,7 +17,7 @@ export abstract class BodyModule implements DiggerModule {
   model: Object3D;
 
   // 接口方法
-  modeling(digger: Digger): void {
+  modeling(): void {
   }
 
   turn(): void {

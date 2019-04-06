@@ -1,14 +1,14 @@
-/*
+/**
  * 作者：郑庆文
  * 时间：2019-03-24
  * 邮箱：quinceyzheng@126.com
- * 说明：这是机械臂模型模块的定义文件
+ * 说明：机械臂各模块的定义文件
  */
 
 import {Object3D} from 'three';
 import {DiggerModule} from './module';
-import {Digger} from './digger';
 
+/* 机械臂各模块的父类 */
 export abstract class ArmsModule implements DiggerModule {
   // 最大绝对活动角度
   maxAngle: number;
@@ -21,21 +21,20 @@ export abstract class ArmsModule implements DiggerModule {
   model: Object3D;
 
   // 接口方法
-  modeling(digger: Digger): void {
+  modeling(): void {
   }
 
   turn(): void {
     if (this.rotates === 0) {
       return;
-    }
-    const sign = this.clockwise ? 1 : -1;
-    if (this.rotates > 0) {
+    } else if (this.rotates > 0) {
       this.rotates--;
     }
-    this.model.rotation.z += sign * this.speed; // 暂时旋转
-    const remainder = this.model.rotation.z % (2 * Math.PI); // 求余数
-    if (remainder > this.maxAngle || remainder < this.minAngle) { // 判断角度
-      this.model.rotation.z -= sign * this.speed; // 恢复角度
+    const sign = this.clockwise ? 1 : -1;
+    const temp = this.model.rotation.z + sign * this.speed;
+    const remainder = temp % (2 * Math.PI);
+    if (remainder >= this.minAngle && remainder <= this.maxAngle) {
+      this.model.rotation.z = remainder;
     }
   }
 
