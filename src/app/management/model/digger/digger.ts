@@ -55,21 +55,19 @@ export class Digger {
     this.bucket.turn();
   }
 
-  // 一直后退
-  public moveDiggerBackward(): void {
-    this.chassis.moveBackward();
-  }
-
-  // 停止移动
-  public stopDiggerMotion(): void {
-    this.chassis.stopMotion();
-  }
-
   /************************>3.主体转向的函数集<***************************/
   // 一直左转
   public turnMainBodyLeft(): void {
     this.mainBody.setClock(1);
     this.mainBody.setTimes(-1);
+  }
+  // 一直后退
+  public moveDiggerBackward(): void {
+    this.chassis.moveBackward();
+  }
+  // 停止移动
+  public stopDiggerMotion(): void {
+    this.chassis.stopMotion();
   }
   /*******************************>1结束<********************************/
 
@@ -90,11 +88,22 @@ export class Digger {
   }
   /*******************************>2结束<********************************/
 
+  // 停止转动
+  public stopMainBodyRotation(): void {
+    this.mainBody.stop();
+  }
   // 一直右转
   public turnMainBodyRight(): void {
     this.mainBody.setClock(-1);
     this.mainBody.setTimes(-1);
   }
+
+  // 停止转动
+  public stopLongArmRotation(): void {
+    this.longArm.stop();
+  }
+
+  /*******************************>3结束<********************************/
 
   /************************>4.长臂旋转的函数集<***************************/
   // 一直上转
@@ -102,19 +111,18 @@ export class Digger {
     this.longArm.setClock(1);
     this.longArm.setTimes(-1);
   }
-
-  // 停止转动
-  public stopMainBodyRotation(): void {
-    this.mainBody.stop();
-  }
-
-  /*******************************>3结束<********************************/
-
   // 一直下转
   public turnLongArmDown(): void {
     this.longArm.setClock(-1);
     this.longArm.setTimes(-1);
   }
+
+  // 停止转动
+  public stopMiddleArmRotation(): void {
+    this.middleArm.stop();
+  }
+
+  /*******************************>4结束<********************************/
 
   /************************>5.中臂旋转的函数集<***************************/
   // 一直上转
@@ -122,17 +130,18 @@ export class Digger {
     this.middleArm.setClock(1);
     this.middleArm.setTimes(-1);
   }
-  // 停止转动
-  public stopLongArmRotation(): void {
-    this.longArm.stop();
-  }
-  /*******************************>4结束<********************************/
-
   // 一直下转
   public turnMiddleArmDown(): void {
     this.middleArm.setClock(-1);
     this.middleArm.setTimes(-1);
   }
+
+  // 停止转动
+  public stopBucketRotation(): void {
+    this.bucket.stop();
+  }
+
+  /*******************************>5结束<********************************/
 
   /************************>6.挖斗旋转的函数集<***************************/
   // 一直上转
@@ -140,29 +149,11 @@ export class Digger {
     this.bucket.setClock(1);
     this.bucket.setTimes(-1);
   }
-  // 停止转动
-  public stopMiddleArmRotation(): void {
-    this.middleArm.stop();
-  }
-  /*******************************>5结束<********************************/
-
   // 一直下转
   public turnBucketDown(): void {
     this.bucket.setClock(-1);
     this.bucket.setTimes(-1);
   }
-
-  /************************>7.挖掘机附加的函数集<***************************/
-  // 开关灯光
-  public switchLights(): void {
-    this.lightsOn = !this.lightsOn;
-    this.longArm.lightsOn(this.lightsOn);
-  }
-  // 停止转动
-  public stopBucketRotation(): void {
-    this.bucket.stop();
-  }
-  /*******************************>6结束<********************************/
 
   // 构建挖掘机对象
   private modeling(): void {
@@ -182,6 +173,15 @@ export class Digger {
     this.longArm.model.add(this.middleArm.model);
     this.mainBody.model.add(this.longArm.model);
     this.chassis.model.add(this.mainBody.model);
+  }
+
+  /*******************************>6结束<********************************/
+
+  /************************>7.挖掘机附加的函数集<***************************/
+  // 开关灯光
+  public switchLights(): void {
+    this.lightsOn = !this.lightsOn;
+    this.longArm.lightsOn(this.lightsOn);
   }
   /*******************************>7结束<********************************/
 

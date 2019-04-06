@@ -13,7 +13,8 @@ import {BodyModule} from './body';
 export class Chassis extends BodyModule {
   // 路标和材质
   private guideMaterial: MeshPhongMaterial;
-  private guide: Mesh;
+  private guideR: Mesh;
+  private guideL: Mesh;
 
   // 初始化对象时设置一些初始值
   constructor() {
@@ -26,13 +27,15 @@ export class Chassis extends BodyModule {
   // 前进
   moveForward(): void {
     this.guideMaterial.opacity = 0.7;
-    this.guide.rotation.y = 0;
+    this.guideR.rotation.y = 0;
+    this.guideL.rotation.y = 0;
   }
 
   // 后退
   moveBackward(): void {
     this.guideMaterial.opacity = 0.7;
-    this.guide.rotation.y = Math.PI;
+    this.guideR.rotation.y = Math.PI;
+    this.guideL.rotation.y = Math.PI;
   }
 
   // 停止
@@ -91,13 +94,16 @@ export class Chassis extends BodyModule {
     const guideGeometry = new ExtrudeGeometry(this.getGuideShape(mainUnit), extrude);
     guideGeometry.translate(0.5 * mainUnit, 0, -guideLength / 2);
     this.guideMaterial = new MeshPhongMaterial({color: 0x3388ff, opacity: 0, transparent: true});
-    this.guide = Common.createMesh(guideGeometry, this.guideMaterial, 0, 5 * mainUnit, 9 * mainUnit);
-    this.guide.castShadow = false;
+    this.guideR = Common.createMesh(guideGeometry, this.guideMaterial, 0, 5 * mainUnit, 9 * mainUnit);
+    this.guideR.castShadow = false;
+    this.guideL = this.guideR.clone();
+    this.guideL.translateZ(-18 * mainUnit);
 
     // 合成物体
     this.model = new Object3D();
     this.model.add(Common.createMesh(geometry, material));
-    this.model.add(this.guide);
+    this.model.add(this.guideR);
+    this.model.add(this.guideL);
     this.model.position.set(0, 0.5 * mainUnit, 0);
   }
 

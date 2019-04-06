@@ -29,7 +29,8 @@ export class ModelComponent implements OnInit, AfterViewInit {
   private camera: PerspectiveCamera;
   private renderer: WebGLRenderer;
   private orbit: OrbitControls;
-  private digger: Digger;
+  public ambient: Ambient;
+  public digger: Digger;
 
   constructor(private keyboardEventService: KeyboardEventService) {
   }
@@ -41,7 +42,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initialize();
-    this.controller = new Controller(this.digger, this.keyboardEventService);
+    this.controller = new Controller(this, this.keyboardEventService);
     this.controller.subscribeKeyDown();
     this.controller.subscribeKeyUp();
     this.subscribeModelWidth();
@@ -81,7 +82,8 @@ export class ModelComponent implements OnInit, AfterViewInit {
 
     // 添加场景物体
     this.digger = new Digger(this.scene);
-    this.scene.add((new Ambient()).model);
+    this.ambient = new Ambient();
+    this.scene.add(this.ambient.model);
 
     // 与显示元素绑定并循环渲染
     this.modelContainer.appendChild(this.renderer.domElement);

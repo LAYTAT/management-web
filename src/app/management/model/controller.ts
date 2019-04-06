@@ -7,22 +7,98 @@
 
 import {KeyboardEventService} from '../../shared/service/keyboard-event.service';
 import {filter} from 'rxjs/operators';
-import {Digger} from './digger/digger';
+import {ModelComponent} from './model.component';
 
-// 控制的业务处理类
+/* 控制的业务处理类 */
 export class Controller {
-  // 挖掘机模型对象
-  private digger: Digger;
+  // 模型组件对象
+  private model: ModelComponent;
   // 按键事件服务对象
   private keyboardEventService: KeyboardEventService;
   // MQTT服务对象
 
   // 注入服务
-  constructor(digger: Digger, keyboardEventService: KeyboardEventService) {
-    this.digger = digger;
+  constructor(model: ModelComponent, keyboardEventService: KeyboardEventService) {
+    this.model = model;
     this.keyboardEventService = keyboardEventService;
   }
 
+  /*************>业务处理函数<*************/
+  private turnBucketUp(): void {
+    this.model.digger.turnBucketUp();
+  }
+
+  private turnBucketDown(): void {
+    this.model.digger.turnBucketDown();
+  }
+
+  private stopBucketRotation(): void {
+    this.model.digger.stopBucketRotation();
+  }
+
+  private turnMiddleArmUp(): void {
+    this.model.digger.turnMiddleArmUp();
+  }
+
+  private turnMiddleArmDown(): void {
+    this.model.digger.turnMiddleArmDown();
+  }
+
+  private stopMiddleArmRotation(): void {
+    this.model.digger.stopMiddleArmRotation();
+  }
+
+  private turnLongArmUp(): void {
+    this.model.digger.turnLongArmUp();
+  }
+
+  private turnLongArmDown(): void {
+    this.model.digger.turnLongArmDown();
+  }
+
+  private stopLongArmRotation(): void {
+    this.model.digger.stopLongArmRotation();
+  }
+
+  private turnMainBodyLeft(): void {
+    this.model.digger.turnMainBodyLeft();
+  }
+
+  private turnMainBodyRight(): void {
+    this.model.digger.turnMainBodyRight();
+  }
+
+  private stopMainBodyRotation(): void {
+    this.model.digger.stopMainBodyRotation();
+  }
+
+  private turnDiggerLeft(): void {
+    this.model.digger.turnDiggerLeft();
+  }
+
+  private turnDiggerRight(): void {
+    this.model.digger.turnDiggerRight();
+  }
+
+  private stopDiggerRotation(): void {
+    this.model.digger.stopDiggerRotation();
+  }
+
+  private moveDiggerForward(): void {
+    this.model.digger.moveDiggerForward();
+  }
+
+  private moveDiggerBackward(): void {
+    this.model.digger.moveDiggerBackward();
+  }
+
+  private stopDiggerMotion(): void {
+    this.model.digger.stopDiggerMotion();
+  }
+
+  private switchLights(): void {
+    this.model.digger.switchLights();
+  }
   /****************>结束<****************/
 
   // 按键按下服务
@@ -106,83 +182,6 @@ export class Controller {
     this.keyboardEventService.keyup$.pipe(
       filter(event => event.key === 's')
     ).subscribe(() => this.stopDiggerMotion());
-  }
-
-  /*************>业务处理函数<*************/
-  private turnBucketUp(): void {
-    this.digger.turnBucketUp();
-  }
-
-  private turnBucketDown(): void {
-    this.digger.turnBucketDown();
-  }
-
-  private stopBucketRotation(): void {
-    this.digger.stopBucketRotation();
-  }
-
-  private turnMiddleArmUp(): void {
-    this.digger.turnMiddleArmUp();
-  }
-
-  private turnMiddleArmDown(): void {
-    this.digger.turnMiddleArmDown();
-  }
-
-  private stopMiddleArmRotation(): void {
-    this.digger.stopMiddleArmRotation();
-  }
-
-  private turnLongArmUp(): void {
-    this.digger.turnLongArmUp();
-  }
-
-  private turnLongArmDown(): void {
-    this.digger.turnLongArmDown();
-  }
-
-  private stopLongArmRotation(): void {
-    this.digger.stopLongArmRotation();
-  }
-
-  private turnMainBodyLeft(): void {
-    this.digger.turnMainBodyLeft();
-  }
-
-  private turnMainBodyRight(): void {
-    this.digger.turnMainBodyRight();
-  }
-
-  private stopMainBodyRotation(): void {
-    this.digger.stopMainBodyRotation();
-  }
-
-  private turnDiggerLeft(): void {
-    this.digger.turnDiggerLeft();
-  }
-
-  private turnDiggerRight(): void {
-    this.digger.turnDiggerRight();
-  }
-
-  private stopDiggerRotation(): void {
-    this.digger.stopDiggerRotation();
-  }
-
-  private moveDiggerForward(): void {
-    this.digger.moveDiggerForward();
-  }
-
-  private moveDiggerBackward(): void {
-    this.digger.moveDiggerBackward();
-  }
-
-  private stopDiggerMotion(): void {
-    this.digger.stopDiggerMotion();
-  }
-
-  private switchLights(): void {
-    this.digger.switchLights();
   }
 
 }
