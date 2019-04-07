@@ -8,7 +8,6 @@ import {Ambient} from './ambient/ambient';
 import {fromEvent} from 'rxjs';
 import {map, throttleTime} from 'rxjs/operators';
 
-const CLEAR_COLOR_HEX = 0xc7edcc; // 渲染的背景色
 const WINDOW_SCALE = 1.3; // 窗口缩放比
 
 @Component({
@@ -55,12 +54,12 @@ export class ModelComponent implements OnInit, AfterViewInit {
     ).subscribe(width => this.onResize(width));
   }
 
-  initialize(): void {
+  private initialize(): void {
     // 创建场景对象
     this.scene = new Scene();
 
     // 创建相机对象
-    this.camera = new PerspectiveCamera(45, WINDOW_SCALE, 0.1, 1000);
+    this.camera = new PerspectiveCamera(45, WINDOW_SCALE, 0.1, 40);
     this.camera.position.set(-8, 8, 8);
     this.camera.lookAt(new Vector3(0, 0, 0));
     this.scene.add(this.camera);
@@ -70,12 +69,11 @@ export class ModelComponent implements OnInit, AfterViewInit {
     this.orbit.minPolarAngle = Math.PI / 6;  // 俯角
     this.orbit.maxPolarAngle = 2 * Math.PI / 5; // 仰角
     this.orbit.enableZoom = true;
-    // this.orbit.minDistance = 8;            // 距视点的最小距离
-    // this.orbit.maxDistance = 10;           // 最大距离*/
+    this.orbit.minDistance = 8;   // 距视点的最小距离
+    this.orbit.maxDistance = 10;  // 最大距离
 
     // 创建渲染对象
-    this.renderer = new WebGLRenderer();
-    this.renderer.setClearColor(CLEAR_COLOR_HEX);
+    this.renderer = new WebGLRenderer({antialias: true});
     this.renderer.shadowMap.enabled = true;
     this.renderer.setSize(this.modelContainer.offsetWidth,
       this.modelContainer.offsetWidth / WINDOW_SCALE);
