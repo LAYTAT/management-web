@@ -4,7 +4,7 @@
           nzType="warning">
 </nz-alert>
 <div #container class="pt-3 row" style="background-color: #f0f2f5">
-  <div class="mb-4 col-sm-12 col-lg-3">
+  <div class="mb-4 col-sm-12 col-lg-2">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle"
              class="mb-4 card">
       <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" style="width: 100%">
@@ -49,7 +49,8 @@
       </button>
     </div>
   </div>
-  <div class="col-sm-12 col-lg-3">
+  <div class="mb-4 col-sm-12 col-lg-2"></div>
+  <div class="col-sm-12 col-lg-2">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle"
              class="mb-3 card">
       <div *ngIf="!car?.currentDriver;else busy" class="p-4">
@@ -58,30 +59,30 @@
       <ng-template #busy>
         <img [src]="car.currentDriver.avatar.id|image" alt="" style="width: 100%">
         <div class="pt-3 px-4 row">
-          <div class="col-6 col-xl-4 mb-3">
+          <div class="col-6 mb-3">
             <div style="font-weight: bold">
               工号：
             </div>
             {{car.currentDriver.employeeId}}</div>
-          <div class="col-6 col-xl-4 mb-3">
+          <div class="col-6 mb-3">
             <div style="font-weight: bold">
               姓名：
             </div>
             {{car.currentDriver.name}}
           </div>
-          <div class="col-6 col-xl-4 mb-3">
+          <div class="col-6 mb-3">
             <div style="font-weight: bold">
               性别：
             </div>
             {{car.currentDriver.gender|gender}}
           </div>
-          <div class="col-6 col-xl-4 mb-3">
+          <div class="col-6 mb-3">
             <div style="font-weight: bold">
               年龄：
             </div>
             {{car.currentDriver.age}}
           </div>
-          <div class="col-12 col-xl-8 mb-3">
+          <div class="col-12 mb-3">
             <div style="font-weight: bold">
               加入时间：
             </div>
@@ -90,7 +91,7 @@
         </div>
       </ng-template>
       <ng-template #driverTitle>
-        <i nz-icon theme="outline" type="user"></i> 当前驾驶员信息
+        <i nz-icon theme="outline" type="user"></i> 驾驶员
       </ng-template>
     </nz-card>
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="carTitle"
@@ -115,19 +116,18 @@
           100Km
         </div>
         <div class="col-12 col-xl-6 mb-3">
-          <div style="font-weight: bold">
-            发动机温度：
+          <div style="font-weight: bold">温度：
           </div>
           30℃
         </div>
-        <div class="col-12 col-xl-6 mb-3">
+        <div class="col-12 mb-3">
           <div style="font-weight: bold">
             总运行时间：
           </div>
           <app-timer [initialTime]="car?.totalTime"
                      [paused]="!car?.startDate"></app-timer>
         </div>
-        <div class="col-12 col-xl-6 mb-3">
+        <div class="col-12 mb-3">
           <div style="font-weight: bold">
             连续运行时间：
           </div>

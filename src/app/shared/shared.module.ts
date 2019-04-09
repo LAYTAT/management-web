@@ -15,6 +15,7 @@ import {TimerComponent} from '../management/timer/timer.component';
 import {SpeedometerComponent} from '../management/speedometer/speedometer.component';
 import {BatteryIndicatorComponent} from '../management/battery-indicator/battery-indicator.component';
 import {ButtonComponent} from '../management/button/button.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {ButtonComponent} from '../management/button/button.component';
     ReactiveFormsModule,
     HttpClientModule,
     GaugesModule,
-    BigScreenModule
+    BigScreenModule,
+    NgxChartsModule
   ],
   exports: [
     ImagePipe,
@@ -50,6 +52,7 @@ import {ButtonComponent} from '../management/button/button.component';
     HttpClientModule,
     GaugesModule,
     BigScreenModule,
+    NgxChartsModule,
     OperationPanelComponent
   ],
   providers: [{
