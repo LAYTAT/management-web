@@ -24,9 +24,10 @@ export class Digger {
   private lightsOn: boolean;
 
   // 初始化挖掘机信息和添加挖掘机对象
-  constructor(scene: Scene) {
+  constructor(scene: Scene, size: number) {
     this.lightsOn = false;
     this.modeling();
+    this.chassis.model.scale.set(size, size, size);
     scene.add(this.chassis.model);
   }
 

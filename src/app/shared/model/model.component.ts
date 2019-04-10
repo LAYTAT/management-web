@@ -59,8 +59,8 @@ export class ModelComponent implements OnInit, AfterViewInit {
     this.scene = new Scene();
 
     // 创建相机对象
-    this.camera = new PerspectiveCamera(45, WINDOW_SCALE, 0.1, 40);
-    this.camera.position.set(-8, 8, 8);
+    this.camera = new PerspectiveCamera(50, WINDOW_SCALE, 0.1, 40);
+    this.camera.position.set(-9, 9, 9);
     this.camera.lookAt(new Vector3(0, 0, 0));
     this.scene.add(this.camera);
 
@@ -79,7 +79,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
       this.modelContainer.offsetWidth / WINDOW_SCALE);
 
     // 添加场景物体
-    this.digger = new Digger(this.scene);
+    this.digger = new Digger(this.scene, 0.7);
     this.ambient = new Ambient();
     this.scene.add(this.ambient.model);
 
