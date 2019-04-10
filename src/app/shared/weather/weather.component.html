@@ -1,0 +1,40 @@
+<nz-card [nzTitle]="title" class="card">
+  <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex">
+      <div class="mr-2" style="font-weight: bold;font-size: 32px">
+        {{now?.tmp}}°
+      </div>
+      <div>
+        <div>
+          {{now?.cond_txt}}
+        </div>
+        <div>
+          体感 {{now?.wind_sc}}°
+        </div>
+      </div>
+    </div>
+    <div style="width: 45px">
+      <img *ngIf="now" [src]="getWeatherIcon(now.cond_code)" alt="" style="width: 100%">
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let f of forecasts" class="col-4">
+      <div style="font-weight: bold">
+        {{f.date|date:'EEE'}}
+      </div>
+      <div class="mb-1" style="font-size: 12px">
+        {{f.cond_txt_d}}
+      </div>
+      <div style="font-size: 12px">
+        {{f.tmp_min}}° {{f.tmp_max}}°
+      </div>
+    </div>
+  </div>
+</nz-card>
+<ng-template #title>
+  <div class="d-flex justify-content-between">
+    天气预报
+    <span><i nz-icon nzTheme="outline" nzType="environment"></i>
+      {{basic?.location}}</span>
+  </div>
+</ng-template>

@@ -9,13 +9,13 @@ import {ElapsedTimePipe} from './pipe/elapsed-time.pipe';
 import {GaugesModule} from 'ng-beautiful-gauges';
 import {CarPipe} from './pipe/car.pipe';
 import {BigScreenModule} from 'angular-bigscreen';
-import {OperationPanelComponent} from '../management/operation-panel/operation-panel.component';
-import {ModelComponent} from '../management/model/model.component';
-import {TimerComponent} from '../management/timer/timer.component';
-import {SpeedometerComponent} from '../management/speedometer/speedometer.component';
-import {BatteryIndicatorComponent} from '../management/battery-indicator/battery-indicator.component';
-import {ButtonComponent} from '../management/button/button.component';
+import {OperationPanelComponent} from './operation-panel/operation-panel.component';
+import {ModelComponent} from './model/model.component';
+import {TimerComponent} from './timer/timer.component';
+import {SpeedometerComponent} from './speedometer/speedometer.component';
+import {ButtonComponent} from './button/button.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {WeatherComponent} from './weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,8 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     ModelComponent,
     TimerComponent,
     SpeedometerComponent,
-    BatteryIndicatorComponent,
     ButtonComponent,
+    WeatherComponent,
   ],
   imports: [
     CommonModule,

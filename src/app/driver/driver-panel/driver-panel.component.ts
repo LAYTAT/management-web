@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {CarService} from '../../shared/service/car.service';
-import {Car} from '../../shared/model/car';
+import {Car} from '../../shared/entity/car';
 
 @Component({
   selector: 'app-driver-dashboard',

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CarName} from '../../../shared/model/car';
+import {CarName} from '../../../shared/entity/car';
 
 @Component({
   selector: 'app-digger-list',

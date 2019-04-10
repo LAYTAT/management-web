@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CarService} from '../../shared/service/car.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Car} from '../../shared/model/car';
+import {Car} from '../../shared/entity/car';
 
 @Component({
   selector: 'app-drivers',

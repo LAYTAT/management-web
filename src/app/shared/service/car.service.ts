@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
-import {Page} from '../model/page';
-import {Car, CarName} from '../model/car';
+import {Page} from '../entity/page';
+import {Car, CarName} from '../entity/car';
 
 @Injectable({
   providedIn: 'root'

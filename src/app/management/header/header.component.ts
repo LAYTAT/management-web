@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../../shared/service/auth.service';
 import {NzDrawerRef, NzDrawerService} from 'ng-zorro-antd';
-import {User} from '../../shared/model/user';
-import {RoleName} from '../../shared/model/role';
+import {User} from '../../shared/entity/user';
+import {RoleName} from '../../shared/entity/role';
 import {Router} from '@angular/router';
 
 @Component({

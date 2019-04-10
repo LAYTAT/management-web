@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RoleName} from '../../shared/model/role';
+import {RoleName} from '../../shared/entity/role';
 import {UserService} from '../../shared/service/user.service';
-import {Gender, User} from '../../shared/model/user';
+import {Gender, User} from '../../shared/entity/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';

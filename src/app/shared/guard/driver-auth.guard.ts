@@ -12,7 +12,7 @@ import {
 } from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from '../service/auth.service';
-import {RoleName} from '../model/role';
+import {RoleName} from '../entity/role';
 
 @Injectable({
   providedIn: 'root'

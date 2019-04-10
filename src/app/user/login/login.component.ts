@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/service/auth.service';
 import {Router} from '@angular/router';
-import {RoleName} from '../../shared/model/role';
+import {RoleName} from '../../shared/entity/role';
 
 @Component({
   selector: 'app-login',

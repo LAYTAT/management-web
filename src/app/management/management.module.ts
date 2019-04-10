@@ -14,6 +14,7 @@ import {DiggerDetailComponent} from './digger-detail/digger-detail.component';
 import {CarListComponent} from './car-list/car-list.component';
 import {PushdozerListComponent} from './car-list/pushdozer-list/pushdozer-list.component';
 import {DiggerListComponent} from './car-list/digger-list/digger-list.component';
+import {StatisticComponent} from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {DiggerListComponent} from './car-list/digger-list/digger-list.component'
     HeaderComponent,
     PushdozerDetailComponent,
     DiggerDetailComponent,
-    CarListComponent
+    CarListComponent,
+    StatisticComponent
   ],
   imports: [
     ManagementRoutingModule,

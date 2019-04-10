@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Car, CarName} from '../../shared/model/car';
+import {Car, CarName} from '../../shared/entity/car';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CarService} from '../../shared/service/car.service';
 import {BehaviorSubject} from 'rxjs';

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {RoleName} from '../model/role';
+import {RoleName} from '../entity/role';
 import {environment} from '../../../environments/environment';
-import {User} from '../model/user';
+import {User} from '../entity/user';
 import {Observable} from 'rxjs';
-import {Page} from '../model/page';
+import {Page} from '../entity/page';
 
 @Injectable({
   providedIn: 'root'
