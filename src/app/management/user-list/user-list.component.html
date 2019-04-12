@@ -1,123 +1,128 @@
-<nz-breadcrumb class="mb-3">
-  <nz-breadcrumb-item>
-    人事管理
-  </nz-breadcrumb-item>
-  <nz-breadcrumb-item>
-    {{role}}
-  </nz-breadcrumb-item>
-</nz-breadcrumb>
-<div class="mb-4 row">
-  <div class="col-4 col-md-6 col-lg-7">
-    <button (click)="isVisible = true;"
-            [nzType]="'primary'"
-            nz-button>添加{{role}}
-    </button>
-    <nz-modal [(nzVisible)]="isVisible"
-              nzTitle="驾驶员信息"
-              nzOkText="添加"
-              (nzOnCancel)="isVisible = false"
-              (nzOnOk)="addUser()"
-              [nzOkLoading]="okLoading">
-      <form nz-form [formGroup]="userForm">
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="employeeId">工号</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <nz-input-number id="employeeId" formControlName="employeeId"></nz-input-number>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="username">用户名</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <input type="text" nz-input formControlName="username">
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="password">密码</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <input type="password" nz-input formControlName="password">
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="name">姓名</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <input type="text" nz-input formControlName="name">
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="gender">性别</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <nz-radio-group id="gender" formControlName="gender" nzName="radioGroup">
-              <label nz-radio nzValue="MAN">男</label>
-              <label nz-radio nzValue="WOMAN">女</label>
-            </nz-radio-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label nzSm="4" nzXs="24" nzFor="age">年龄</nz-form-label>
-          <nz-form-control nzSm="18" nzXs="24">
-            <nz-input-number id="age" formControlName="age"></nz-input-number>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </nz-modal>
-  </div>
-  <div class="col-8 col-md-6 col-lg-5">
-    <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input #searchBox (input)="searchTerms.next(searchBox.value)" nz-input
-             placeholder="输入工号进行搜索" type="text">
-    </nz-input-group>
-    <ng-template #suffixIconSearch>
-      <i nz-icon type="search"></i>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10 col-xl-8">
+    <nz-breadcrumb class="mb-3">
+      <nz-breadcrumb-item>
+        人事管理
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        {{role}}
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="mb-4 row">
+      <div class="col-4 col-md-6 col-lg-7">
+        <button (click)="isVisible = true;"
+                [nzType]="'primary'"
+                nz-button>添加{{role}}
+        </button>
+        <nz-modal (nzOnCancel)="isVisible = false"
+                  (nzOnOk)="addUser()"
+                  [(nzVisible)]="isVisible"
+                  [nzOkLoading]="okLoading"
+                  nzOkText="添加"
+                  nzTitle="驾驶员信息">
+          <form [formGroup]="userForm" nz-form>
+            <nz-form-item>
+              <nz-form-label nzFor="employeeId" nzSm="4" nzXs="24">工号</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <nz-input-number formControlName="employeeId" id="employeeId"></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="username" nzSm="4" nzXs="24">用户名</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <input formControlName="username" nz-input type="text">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="password" nzSm="4" nzXs="24">密码</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <input formControlName="password" nz-input type="password">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="name" nzSm="4" nzXs="24">姓名</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <input formControlName="name" nz-input type="text">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="gender" nzSm="4" nzXs="24">性别</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <nz-radio-group formControlName="gender" id="gender" nzName="radioGroup">
+                  <label nz-radio nzValue="MAN">男</label>
+                  <label nz-radio nzValue="WOMAN">女</label>
+                </nz-radio-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="age" nzSm="4" nzXs="24">年龄</nz-form-label>
+              <nz-form-control nzSm="18" nzXs="24">
+                <nz-input-number formControlName="age" id="age"></nz-input-number>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-modal>
+      </div>
+      <div class="col-8 col-md-6 col-lg-5">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input #searchBox (input)="searchTerms.next(searchBox.value)" nz-input
+                 placeholder="输入工号进行搜索" type="text">
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon type="search"></i>
+        </ng-template>
+      </div>
+    </div>
+    <nz-table #usersTable
+              (nzPageIndexChange)="findAll()"
+              (nzPageSizeChange)="findAll(true)"
+              [(nzPageIndex)]="pageIndex"
+              [(nzPageSize)]="pageSize"
+              [nzData]="users"
+              [nzFrontPagination]="false"
+              [nzLoading]="loading"
+              [nzScroll]="{x:'600px'}"
+              [nzShowSizeChanger]="true"
+              [nzTotal]="total">
+      <thead (nzSortChange)="changeSort($event)">
+      <tr>
+        <th [nzSortKey]="'employeeId'"
+            nzShowSort>工号
+        </th>
+        <th>用户名</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>加入时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of usersTable.data">
+        <td>{{user.employeeId}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.gender|gender}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.createdDate|date:'yyyy-M-d'}}</td>
+        <td>
+          <a (nzOnConfirm)="deleteUser(user.employeeId)"
+             [nzTitle]=popConfirmTitle
+             nz-popconfirm
+             nzPlacement="leftTop">删除</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-upload (nzChange)="handleChange($event)" [nzAction]="getUploadUrl(user.employeeId)"
+                     [nzShowUploadList]="false"
+                     nzLimit="1">
+            <a>更换头像</a>
+          </nz-upload>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #popConfirmTitle>
+      确定要删除这个{{role}}?
     </ng-template>
   </div>
 </div>
-<nz-table #usersTable
-          [nzData]="users"
-          [nzLoading]="loading"
-          [(nzPageIndex)]="pageIndex"
-          [(nzPageSize)]="pageSize"
-          [nzShowSizeChanger]="true"
-          [nzTotal]="total"
-          [nzScroll]="{x:'600px'}"
-          [nzFrontPagination]="false"
-          (nzPageIndexChange)="findAll()"
-          (nzPageSizeChange)="findAll(true)">
-  <thead (nzSortChange)="changeSort($event)">
-  <tr>
-    <th nzShowSort
-        [nzSortKey]="'employeeId'">工号
-    </th>
-    <th>用户名</th>
-    <th>姓名</th>
-    <th>性别</th>
-    <th>年龄</th>
-    <th>加入时间</th>
-    <th>操作</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of usersTable.data">
-    <td>{{user.employeeId}}</td>
-    <td>{{user.username}}</td>
-    <td>{{user.name}}</td>
-    <td>{{user.gender|gender}}</td>
-    <td>{{user.age}}</td>
-    <td>{{user.createdDate|date:'yyyy-M-d'}}</td>
-    <td>
-      <a nz-popconfirm
-         [nzTitle]=popConfirmTitle
-         (nzOnConfirm)="deleteUser(user.employeeId)"
-         nzPlacement="leftTop">删除</a>
-      <nz-divider nzType="vertical"></nz-divider>
-      <nz-upload (nzChange)="handleChange($event)" [nzAction]="getUploadUrl(user.employeeId)"
-                 [nzShowUploadList]="false"
-                 nzLimit="1">
-        <a>更换头像</a>
-      </nz-upload>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<ng-template #popConfirmTitle>
-  确定要删除这个{{role}}?
-</ng-template>
+
