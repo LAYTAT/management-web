@@ -1,12 +1,12 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="carForm" class="mt-4" nz-form>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="liveUrl">视频地址</nz-form-label>
-    <nz-form-control [nzSm]="12" [nzXs]="24">
+    <nz-form-label>视频地址</nz-form-label>
+    <nz-form-control>
       <input formControlName="liveUrl" id="liveUrl" nz-input>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-control [nzSpan]="14" class="offset-sm-3">
+    <nz-form-control>
       <button nz-button nzType="primary">保存</button>
     </nz-form-control>
   </nz-form-item>

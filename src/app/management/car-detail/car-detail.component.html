@@ -6,7 +6,11 @@
   </nz-tab>
   <nz-tab nzTitle="驾驶员">
     <ng-template nz-tab>
-      <app-drivers [carId]="carId"></app-drivers>
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-12">
+          <app-drivers [carId]="carId"></app-drivers>
+        </div>
+      </div>
     </ng-template>
   </nz-tab>
   <nz-tab nzTitle="统计数据">
@@ -16,7 +20,11 @@
   </nz-tab>
   <nz-tab nzTitle="管理">
     <ng-template nz-tab>
-      <app-car-profile [carId]="carId"></app-car-profile>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-12">
+          <app-car-profile [carId]="carId"></app-car-profile>
+        </div>
+      </div>
     </ng-template>
   </nz-tab>
 </nz-tabset>

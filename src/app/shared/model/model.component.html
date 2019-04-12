@@ -1,7 +1,7 @@
 <div style="position: relative">
   <div #statsOutput class="stats"></div>
   <div #modelOutput id='modelOutput' class="model">
-    <div style="position: absolute;bottom: 25px;left: 25px">
+    <div class="d-none d-md-block" style="position: absolute;bottom: 25px;left: 25px">
       <div class="d-flex justify-content-center" style="width: 134px">
         <app-button [key]="'w'" [name]="'W'"></app-button>
       </div>
@@ -11,7 +11,7 @@
         <app-button [key]="'d'" [name]="'D'"></app-button>
       </div>
     </div>
-    <div style="position: absolute;bottom: 25px;right: 25px">
+    <div class="d-none d-md-block" style="position: absolute;bottom: 25px;right: 25px">
       <div style="width: 181px">
         <app-button [key]="'y'" [name]="'Y'" style="margin-right: 7px"></app-button>
         <app-button [key]="'u'" [name]="'U'" style="margin-right: 7px"></app-button>
