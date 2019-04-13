@@ -3,49 +3,55 @@
           nzShowIcon
           nzType="warning">
 </nz-alert>
-<div #container class="pt-3 row" style="background-color: #f0f2f5">
-  <div class="mb-4 col-sm-12 col-lg-3 col-xl-2">
+<div #mainContainer class="pt-3 row" style="background-color: #f0f2f5">
+  <div class="mb-3 col-sm-12 col-lg-3">
+    <nz-alert
+      class="mb-3"
+      nzDescription="您已经连续驾驶了5个小时,请休息15分钟,再进行驾驶"
+      nzMessage="报警信息"
+      nzType="error">
+    </nz-alert>
     <div class="mb-3">
       <app-weather></app-weather>
     </div>
-    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle"
-             class="mb-3 card">
-      <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live" style="width: 100%">
-      <ng-template #elseBlock>
-        <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
-      </ng-template>
-    </nz-card>
+    <div>
+      <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle" class="card mb-2">
+        <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live"
+             style="width: 100%">
+        <ng-template #elseBlock>
+          <img alt="live" src="https://via.placeholder.com/320x240" style="width: 100%">
+        </ng-template>
+      </nz-card>
+    </div>
     <ng-template #liveTitle>
       <i nz-icon nzTheme="outline" nzType="video-camera"></i> Live
     </ng-template>
-    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="dashboardTitle"
-             class="card">
-      <div class="pt-3 px-4">
-        <div class="d-flex flex-column align-items-center">
-          <app-speedometer></app-speedometer>
-          <div class="mb-3">
-            <button (click)="startDrive()" [disabled]="car?.startDate||!available"
-                    class="mr-4" nz-button nzShape="circle" nzSize="large" nzType="primary">
-              <i nz-icon nzTheme="outline" nzType="caret-right"></i>
-            </button>
-            <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
-                    nz-button nzShape="circle" nzSize="large" nzType="danger">
-              <i nz-icon nzTheme="outline" nzType="pause"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <ng-template #dashboardTitle>
-        <i nz-icon theme="outline" type="dashboard"></i> 仪表盘
-      </ng-template>
-    </nz-card>
+    <div class="mt-4 px-4 d-flex justify-content-around">
+      <button (click)="startDrive()" [disabled]="car?.startDate||!available"
+              class="mr-4" nz-button nzShape="circle" nzSize="large" nzType="primary">
+        <i nz-icon nzTheme="outline" nzType="caret-right"></i>
+      </button>
+      <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
+              nz-button nzShape="circle" nzSize="large" nzType="danger">
+        <i nz-icon nzTheme="outline" nzType="pause"></i>
+      </button>
+    </div>
   </div>
-  <div class="mb-3 col-sm-12 col-lg-6 col-xl-8">
-    <nz-card [nzBodyStyle]="{'padding':'0'}">
+  <div class="mb-3 col-sm-12 col-lg-6">
+    <nz-card [nzBodyStyle]="{'padding':'0'}" class="mb-3">
       <app-model></app-model>
     </nz-card>
+    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="dashboardTitle" class="card">
+      <div class="pt-3 px-5 d-flex justify-content-around">
+        <app-battery-indicator></app-battery-indicator>
+        <app-speedometer></app-speedometer>
+      </div>
+    </nz-card>
+    <ng-template #dashboardTitle>
+      <i nz-icon nzTheme="outline" nzType="dashboard"></i> 仪表盘
+    </ng-template>
   </div>
-  <div class="col-sm-12 col-lg-3 col-xl-2">
+  <div class="col-sm-12 col-lg-3">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle"
              class="mb-3 card">
       <div *ngIf="!car?.currentDriver;else busy" class="p-4">
@@ -54,30 +60,30 @@
       <ng-template #busy>
         <img [src]="car.currentDriver.avatar.id|image" alt="" style="width: 100%">
         <div class="pt-3 px-4 row">
-          <div class="col-6 mb-3">
+          <div class="col-6 col-lg-4 mb-3">
             <div style="font-weight: bold">
               工号：
             </div>
             {{car.currentDriver.employeeId}}</div>
-          <div class="col-6 mb-3">
+          <div class="col-6 col-lg-4 mb-3">
             <div style="font-weight: bold">
               姓名：
             </div>
             {{car.currentDriver.name}}
           </div>
-          <div class="col-6 mb-3">
+          <div class="col-6 col-lg-4 mb-3">
             <div style="font-weight: bold">
               性别：
             </div>
             {{car.currentDriver.gender|gender}}
           </div>
-          <div class="col-6 mb-3">
+          <div class="col-6 col-lg-4 mb-3">
             <div style="font-weight: bold">
               年龄：
             </div>
             {{car.currentDriver.age}}
           </div>
-          <div class="col-12 mb-3">
+          <div class="col-12 col-lg-8 mb-3">
             <div style="font-weight: bold">
               加入时间：
             </div>
@@ -100,35 +106,29 @@
         </div>
         <div class="col-6 mb-2">
           <div style="font-weight: bold">
-            车辆类型：
+            类型：
           </div>
           {{car?.carName|car}}
         </div>
         <div class="col-6 mb-2">
           <div style="font-weight: bold">
-            总里程：
+            里程：
           </div>
           100Km
-        </div>
-        <div class="col-6 mb-2">
-          <div style="font-weight: bold">
-            剩余电量：
-          </div>
-          95%
         </div>
         <div class="col-6 mb-2">
           <div style="font-weight: bold">温度：
           </div>
           30℃
         </div>
-        <div class="col-6 col-lg-12 mb-2">
+        <div class="col-6 mb-2">
           <div style="font-weight: bold">
             总运行时间：
           </div>
           <app-timer [initialTime]="car?.totalTime"
                      [paused]="!car?.startDate"></app-timer>
         </div>
-        <div class="col-6 col-lg-12 mb-3">
+        <div class="col-6 mb-3">
           <div style="font-weight: bold">
             连续运行时间：
           </div>

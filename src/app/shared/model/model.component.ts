@@ -16,13 +16,10 @@ const WINDOW_SCALE = 1.3; // 窗口缩放比
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit, AfterViewInit {
-  @ViewChild('statsOutput')
-  statsRef: ElementRef;
   @ViewChild('modelOutput')
   modelRef: ElementRef;
 
   private controller: Controller;
-  private statsContainer: HTMLElement;
   private modelContainer: HTMLElement;
   private scene: Scene;
   private camera: PerspectiveCamera;
@@ -35,7 +32,6 @@ export class ModelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.statsContainer = this.statsRef.nativeElement;
     this.modelContainer = this.modelRef.nativeElement;
   }
 

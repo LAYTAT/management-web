@@ -11,9 +11,9 @@ import {BigScreenService} from 'angular-bigscreen';
   styleUrls: ['./operation-panel.component.css']
 })
 export class OperationPanelComponent implements OnInit, OnChanges {
-  @ViewChild('container')
-  containerRef: ElementRef;
-  container: HTMLElement;
+  @ViewChild('mainContainer')
+  mainContainerRef: ElementRef;
+  mainContainer: HTMLElement;
   @Input()
   carId: number;
   car: Car;
@@ -27,7 +27,7 @@ export class OperationPanelComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.container = this.containerRef.nativeElement;
+    this.mainContainer = this.mainContainerRef.nativeElement;
     this.getCurrentUser();
   }
 
@@ -55,7 +55,7 @@ export class OperationPanelComponent implements OnInit, OnChanges {
   }
 
   startDrive() {
-    this.launchFullScreen(this.container);
+    this.mainFullScreen();
     this.carService.startDrive(this.car.carId, this.currentUser.employeeId).subscribe(
       car => {
         this.car = car;
@@ -70,8 +70,8 @@ export class OperationPanelComponent implements OnInit, OnChanges {
       car => this.car = car);
   }
 
-  launchFullScreen(element: HTMLElement) {
-    this.bigScreenService.request(element);
+  mainFullScreen() {
+    this.bigScreenService.request(this.mainContainer);
   }
 
   exitFullscreen() {

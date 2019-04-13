@@ -16,6 +16,7 @@ import {SpeedometerComponent} from './speedometer/speedometer.component';
 import {ButtonComponent} from './button/button.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {WeatherComponent} from './weather/weather.component';
+import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {WeatherComponent} from './weather/weather.component';
     SpeedometerComponent,
     ButtonComponent,
     WeatherComponent,
+    BatteryIndicatorComponent
   ],
   imports: [
     CommonModule,
