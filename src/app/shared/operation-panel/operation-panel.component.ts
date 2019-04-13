@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Car} from '../entity/car';
 import {AuthService} from '../service/auth.service';
 import {CarService} from '../service/car.service';
@@ -10,7 +10,7 @@ import {BigScreenService} from 'angular-bigscreen';
   templateUrl: './operation-panel.component.html',
   styleUrls: ['./operation-panel.component.css']
 })
-export class OperationPanelComponent implements OnInit, OnChanges {
+export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
   @ViewChild('mainContainer')
   mainContainerRef: ElementRef;
   mainContainer: HTMLElement;
@@ -20,6 +20,8 @@ export class OperationPanelComponent implements OnInit, OnChanges {
   currentUser: User;
   runningTime = 0;
   available = false;
+
+  isFullscreen = false;
 
   constructor(private authService: AuthService,
               private carService: CarService,
@@ -35,6 +37,10 @@ export class OperationPanelComponent implements OnInit, OnChanges {
     if (changes.carId.currentValue) {
       this.getCar();
     }
+  }
+
+  ngDoCheck(): void {
+    this.isFullscreen = this.bigScreenService.isFullscreen();
   }
 
   getCurrentUser(): void {

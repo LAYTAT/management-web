@@ -6,8 +6,9 @@
  */
 
 import {KeyboardEventService} from '../service/keyboard-event.service';
-import {filter} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {ModelComponent} from './model.component';
+import {fromEvent} from 'rxjs';
 
 /* 控制的业务处理类 */
 export class Controller {
@@ -99,6 +100,7 @@ export class Controller {
   private switchLights(): void {
     this.model.digger.switchLights();
   }
+
   /****************>结束<****************/
 
   // 按键按下服务
@@ -184,4 +186,98 @@ export class Controller {
     ).subscribe(() => this.stopDiggerMotion());
   }
 
+
+  subscribeTouchStart(): void {
+    fromEvent(document, 'touchstart')
+      .pipe(
+        map(event => event.target['innerText'])
+      )
+      .subscribe(text => {
+        switch (text) {
+          case 'Y':
+            this.turnBucketUp();
+            break;
+          case 'H':
+            this.turnBucketDown();
+            break;
+          case 'U':
+            this.turnMiddleArmUp();
+            break;
+          case 'J':
+            this.turnMiddleArmDown();
+            break;
+          case 'I':
+            this.turnLongArmUp();
+            break;
+          case 'K':
+            this.turnLongArmDown();
+            break;
+          case 'O':
+            this.turnMainBodyLeft();
+            break;
+          case 'L':
+            this.turnMainBodyRight();
+            break;
+          case 'A':
+            this.turnDiggerLeft();
+            break;
+          case 'D':
+            this.turnDiggerRight();
+            break;
+          case 'W':
+            this.moveDiggerForward();
+            break;
+          case 'S':
+            this.moveDiggerBackward();
+            break;
+        }
+      });
+  }
+
+  subscribeTouchEnd(): void {
+    fromEvent(document, 'touchend')
+      .pipe(
+        map(event => event.target['innerText'])
+      )
+      .subscribe(text => {
+        switch (text) {
+          case 'Y':
+            this.stopBucketRotation();
+            break;
+          case 'H':
+            this.stopBucketRotation();
+            break;
+          case 'U':
+            this.stopMiddleArmRotation();
+            break;
+          case 'J':
+            this.stopMiddleArmRotation();
+            break;
+          case 'I':
+            this.stopLongArmRotation();
+            break;
+          case 'K':
+            this.stopLongArmRotation();
+            break;
+          case 'O':
+            this.stopMainBodyRotation();
+            break;
+          case 'L':
+            this.stopMainBodyRotation();
+            break;
+          case 'A':
+            this.stopDiggerRotation();
+            break;
+          case 'D':
+            this.stopDiggerRotation();
+            break;
+          case 'W':
+            this.stopDiggerMotion();
+            break;
+          case 'S':
+            this.stopDiggerMotion();
+            break;
+        }
+      });
+  }
 }

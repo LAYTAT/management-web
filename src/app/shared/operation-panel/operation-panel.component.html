@@ -3,8 +3,10 @@
           nzShowIcon
           nzType="warning">
 </nz-alert>
-<div #mainContainer class="pt-3 row" style="background-color: #f0f2f5">
-  <div class="mb-3 col-sm-12 col-lg-3">
+<div #mainContainer [ngClass]="{'fullscreen':isFullscreen}"
+     class="row"
+     style="background-color: #f0f2f5">
+  <div class="mb-3 col-12 col-lg-3">
     <nz-alert
       class="mb-3"
       nzDescription="您已经连续驾驶了5个小时,请休息15分钟,再进行驾驶"
@@ -37,12 +39,12 @@
       </button>
     </div>
   </div>
-  <div class="mb-3 col-sm-12 col-lg-6">
+  <div class="mb-3 col-12 col-lg-6">
     <nz-card [nzBodyStyle]="{'padding':'0'}" class="mb-3">
       <app-model></app-model>
     </nz-card>
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="dashboardTitle" class="card">
-      <div class="pt-3 px-5 d-flex justify-content-around">
+      <div class="pt-4 px-5 d-flex justify-content-around">
         <app-battery-indicator></app-battery-indicator>
         <app-speedometer></app-speedometer>
       </div>
@@ -51,7 +53,7 @@
       <i nz-icon nzTheme="outline" nzType="dashboard"></i> 仪表盘
     </ng-template>
   </div>
-  <div class="col-sm-12 col-lg-3">
+  <div class="col-12 col-lg-3">
     <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle"
              class="mb-3 card">
       <div *ngIf="!car?.currentDriver;else busy" class="p-4">

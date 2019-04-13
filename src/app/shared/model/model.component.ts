@@ -19,7 +19,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
   @ViewChild('modelOutput')
   modelRef: ElementRef;
 
-  private controller: Controller;
+  public controller: Controller;
   private modelContainer: HTMLElement;
   private scene: Scene;
   private camera: PerspectiveCamera;
@@ -40,6 +40,8 @@ export class ModelComponent implements OnInit, AfterViewInit {
     this.controller = new Controller(this, this.keyboardEventService);
     this.controller.subscribeKeyDown();
     this.controller.subscribeKeyUp();
+    this.controller.subscribeTouchStart();
+    this.controller.subscribeTouchEnd();
     this.subscribeModelWidth();
   }
 
