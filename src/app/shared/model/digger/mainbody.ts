@@ -55,7 +55,7 @@ export class MainBody extends BodyModule {
 
     // 定义拉伸属性
     const extrude = {
-      amount: mainLength,
+      depth: mainLength,
       curveSegments: 30,
       bevelEnabled: false
     };
@@ -68,7 +68,7 @@ export class MainBody extends BodyModule {
     geometry.merge(main);
 
     // 添加机械臂基台
-    extrude.amount = baseLength;
+    extrude.depth = baseLength;
     const base = new ExtrudeGeometry(this.getBaseShape(mainUnit), extrude);
     base.rotateY(-Math.PI / 2);
     base.rotateZ(-Math.PI / 2);
@@ -76,13 +76,13 @@ export class MainBody extends BodyModule {
     geometry.merge(base);
 
     // 添加连接管道
-    extrude.amount = pipeLength;
+    extrude.depth = pipeLength;
     const pipe = new ExtrudeGeometry(this.getPipeShape(mainUnit, pipeHeight), extrude);
     pipe.translate(0, baseLength, -1.5 * mainUnit);
     geometry.merge(pipe);
 
     // 添加驾驶舱
-    extrude.amount = roomLength;
+    extrude.depth = roomLength;
     const room = new ExtrudeGeometry(this.getRoomShape(mainUnit), extrude);
     room.translate(0.5 * mainUnit, 0, -4.5 * mainUnit);
     geometry.merge(room);
@@ -103,7 +103,7 @@ export class MainBody extends BodyModule {
       });
 
     // 添加引擎盖
-    extrude.amount = lidLength;
+    extrude.depth = lidLength;
     const lid = new ExtrudeGeometry(this.getLidShape(mainUnit), extrude);
     lid.translate(-6 * mainUnit, mainLength, -lidLength / 2);
     lidGeometry.merge(lid);

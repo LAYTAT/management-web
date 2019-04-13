@@ -56,7 +56,7 @@ export class Bucket extends ArmsModule {
 
     // 定义拉伸属性
     const extrude = {
-      amount: pipeLength,
+      depth: pipeLength,
       curveSegments: 30,
       bevelEnabled: false
     };
@@ -81,13 +81,13 @@ export class Bucket extends ArmsModule {
     geometry.merge(nutL); // 左螺帽
 
     // 添加挖斗面
-    extrude.amount = mainLength;
+    extrude.depth = mainLength;
     const main = new ExtrudeGeometry(this.getMainShape(mainUnit, mainThick), extrude);
     main.translate(0, -pipeRadius, -mainLength * 0.5);
     geometry.merge(main);
 
     // 添加挖斗挡板
-    extrude.amount = mainThick;
+    extrude.depth = mainThick;
     const baffleR = new ExtrudeGeometry(this.getMainShape(mainUnit), extrude);
     baffleR.translate(0, -pipeRadius, mainLength * 0.5);
     geometry.merge(baffleR);

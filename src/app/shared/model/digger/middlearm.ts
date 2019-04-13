@@ -64,7 +64,7 @@ export class MiddleArm extends ArmsModule {
 
     // 定义拉伸属性
     const extrude = {
-      amount: mainLength,
+      depth: mainLength,
       curveSegments: 30,
       bevelEnabled: false
     };

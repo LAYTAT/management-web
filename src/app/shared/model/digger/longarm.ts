@@ -78,7 +78,7 @@ export class LongArm extends ArmsModule {
 
     // 定义拉伸属性
     const extrude = {
-      amount: mainLength,
+      depth: mainLength,
       curveSegments: 30,
       bevelEnabled: false
     };
@@ -89,7 +89,7 @@ export class LongArm extends ArmsModule {
     geometry.merge(main);
 
     // 添加照明灯
-    extrude.amount = flareLength;
+    extrude.depth = flareLength;
     const flareR = new ExtrudeGeometry(this.getFlareShape(flareRadius, flareWidth), extrude);
     flareR.translate(7 * mainRadius, 4 * mainRadius, mainLength / 2);
     geometry.merge(flareR);

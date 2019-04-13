@@ -69,7 +69,7 @@ export class Chassis extends BodyModule {
 
     // 定义拉伸属性
     const extrude = {
-      amount: pipeLength,
+      depth: pipeLength,
       bevelEnabled: false,
       curveSegments: 20
     };
@@ -81,7 +81,7 @@ export class Chassis extends BodyModule {
     geometry.merge(pipe);
 
     // 添加履带
-    extrude.amount = trackLength;
+    extrude.depth = trackLength;
     const trackL = new ExtrudeGeometry(this.getTrackShape(mainUnit), extrude);
     trackL.translate(0, mainUnit, mainUnit * 3.5);
     geometry.merge(trackL);
@@ -90,7 +90,7 @@ export class Chassis extends BodyModule {
     geometry.merge(trackR);
 
     // 添加路标
-    extrude.amount = guideLength;
+    extrude.depth = guideLength;
     const guideGeometry = new ExtrudeGeometry(this.getGuideShape(mainUnit), extrude);
     guideGeometry.translate(0.5 * mainUnit, 0, -guideLength / 2);
     this.guideMaterial = new MeshPhongMaterial({color: 0x3388ff, opacity: 0, transparent: true});
