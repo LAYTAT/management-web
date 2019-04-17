@@ -1,56 +1,22 @@
 <div class="row">
-  <div class="col">
+  <div class="col-12 col-md-6 col-lg-4" style="height: 400px">
     <ngx-charts-bar-vertical
       (select)="onSelect($event)"
       [gradient]="false"
-      [legend]="true"
       [results]="single"
       [scheme]="colorScheme"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
-      [view]="[500,400]"
       [xAxisLabel]="'Country'"
       [xAxis]="true"
       [yAxisLabel]="'Population'"
       [yAxis]="true">
     </ngx-charts-bar-vertical>
   </div>
-  <div class="col">
+  <div class="col-12 col-md-6 col-lg-4" style="height: 400px">
     <ngx-charts-pie-chart
       [labels]="true"
-      [legend]="true"
-      [results]="single"
-      [view]="[400,400]">
+      [results]="single">
     </ngx-charts-pie-chart>
-  </div>
-  <div class="col">
-    <ngx-charts-line-chart
-      [autoScale]="true"
-      [legend]="true"
-      [results]="multi"
-      [scheme]="colorScheme"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [view]="[500,400]"
-      [xAxisLabel]="'Date'"
-      [xAxis]="true"
-      [yAxisLabel]="'GDP'"
-      [yAxis]="true">
-    </ngx-charts-line-chart>
-  </div>
-  <div class="col">
-    <ngx-charts-polar-chart
-      [autoScale]="true"
-      [legend]="true"
-      [results]="multi"
-      [scheme]="colorScheme"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [view]="[400,400]"
-      [xAxisLabel]="'Date'"
-      [xAxis]="true"
-      [yAxisLabel]="'GDP'"
-      [yAxis]="true">
-    </ngx-charts-polar-chart>
   </div>
 </div>

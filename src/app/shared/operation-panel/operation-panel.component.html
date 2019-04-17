@@ -7,17 +7,11 @@
      class="row"
      style="background-color: #f0f2f5">
   <div class="mb-3 col-12 col-lg-3">
-    <nz-alert
-      class="mb-3"
-      nzDescription="您已经连续驾驶了5个小时,请休息15分钟,再进行驾驶"
-      nzMessage="报警信息"
-      nzType="error">
-    </nz-alert>
-    <div class="mb-3">
+    <div class="mb-2">
       <app-weather></app-weather>
     </div>
     <div>
-      <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle" class="card mb-2">
+      <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="liveTitle" class="card mb-2" nzHoverable>
         <img *ngIf="car?.liveUrl;else elseBlock" [src]="car.liveUrl" alt="live"
              style="width: 100%">
         <ng-template #elseBlock>
@@ -28,25 +22,37 @@
     <ng-template #liveTitle>
       <i nz-icon nzTheme="outline" nzType="video-camera"></i> Live
     </ng-template>
-    <div class="mt-4 px-4 d-flex justify-content-around">
-      <button (click)="startDrive()" [disabled]="car?.startDate||!available"
-              class="mr-4" nz-button nzShape="circle" nzSize="large" nzType="primary">
-        <i nz-icon nzTheme="outline" nzType="caret-right"></i>
-      </button>
-      <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
-              nz-button nzShape="circle" nzSize="large" nzType="danger">
-        <i nz-icon nzTheme="outline" nzType="pause"></i>
-      </button>
+    <div #useRatio>
+      <nz-card [nzBodyStyle]="{'padding':'0'}" nzHoverable nzTitle="使用率">
+        <div class="py-2">
+          <app-use-ratio-indicator [dimension]="[useRatio.offsetWidth,200]">
+          </app-use-ratio-indicator>
+        </div>
+      </nz-card>
     </div>
   </div>
   <div class="mb-3 col-12 col-lg-6">
-    <nz-card [nzBodyStyle]="{'padding':'0'}" class="mb-3">
+    <nz-card [nzBodyStyle]="{'padding':'0'}" class="mb-3" nzHoverable>
       <app-model></app-model>
     </nz-card>
-    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="dashboardTitle" class="card">
-      <div class="pt-4 px-5 d-flex justify-content-around">
-        <app-battery-indicator></app-battery-indicator>
-        <app-speedometer></app-speedometer>
+    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="dashboardTitle" nzHoverable>
+      <div class="pt-4 px-lg-5 d-flex justify-content-around">
+        <div>
+          <app-battery-indicator></app-battery-indicator>
+        </div>
+        <div class="d-flex justify-content-around align-items-center">
+          <button (click)="startDrive()" [disabled]="car?.startDate||!available"
+                  class="mr-4" nz-button nzShape="circle" nzSize="large" nzType="primary">
+            <i nz-icon nzTheme="outline" nzType="caret-right"></i>
+          </button>
+          <button (click)="finishDrive()" [disabled]="!car?.startDate||!available"
+                  nz-button nzShape="circle" nzSize="large" nzType="danger">
+            <i nz-icon nzTheme="outline" nzType="pause"></i>
+          </button>
+        </div>
+        <div>
+          <app-speedometer></app-speedometer>
+        </div>
       </div>
     </nz-card>
     <ng-template #dashboardTitle>
@@ -54,7 +60,7 @@
     </ng-template>
   </div>
   <div class="col-12 col-lg-3">
-    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle"
+    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="driverTitle" nzHoverable
              class="mb-3 card">
       <div *ngIf="!car?.currentDriver;else busy" class="p-4">
         无人使用
@@ -97,8 +103,8 @@
         <i nz-icon theme="outline" type="user"></i> 驾驶员
       </ng-template>
     </nz-card>
-    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="carTitle"
-             class="card">
+    <nz-card [nzBodyStyle]="{'padding':'0'}" [nzTitle]="carTitle" nzHoverable
+    >
       <div class="row pt-3 px-4">
         <div class="col-6 mb-2">
           <div style="font-weight: bold">

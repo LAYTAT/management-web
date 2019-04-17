@@ -17,6 +17,7 @@ import {ButtonComponent} from './button/button.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {WeatherComponent} from './weather/weather.component';
 import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.component';
+import {UseRatioIndicatorComponent} from './use-ratio-indicator/use-ratio-indicator.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.c
     SpeedometerComponent,
     ButtonComponent,
     WeatherComponent,
-    BatteryIndicatorComponent
+    BatteryIndicatorComponent,
+    UseRatioIndicatorComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.c
     GaugesModule,
     BigScreenModule,
     NgxChartsModule,
-    OperationPanelComponent
+    OperationPanelComponent,
+    UseRatioIndicatorComponent
   ],
   providers: [{
     provide: NZ_I18N,
