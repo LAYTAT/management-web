@@ -14,6 +14,7 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
   @ViewChild('mainContainer')
   mainContainerRef: ElementRef;
   mainContainer: HTMLElement;
+
   @Input()
   carId: number;
   car: Car;

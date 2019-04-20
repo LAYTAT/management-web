@@ -18,6 +18,9 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {WeatherComponent} from './weather/weather.component';
 import {BatteryIndicatorComponent} from './battery-indicator/battery-indicator.component';
 import {UseRatioIndicatorComponent} from './use-ratio-indicator/use-ratio-indicator.component';
+import {DirectionControlComponent} from './direction-control/direction-control.component';
+import {ActionControlComponent} from './action-control/action-control.component';
+import {StatisticComponent} from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import {UseRatioIndicatorComponent} from './use-ratio-indicator/use-ratio-indica
     ButtonComponent,
     WeatherComponent,
     BatteryIndicatorComponent,
-    UseRatioIndicatorComponent
+    UseRatioIndicatorComponent,
+    DirectionControlComponent,
+    ActionControlComponent,
+    StatisticComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +64,8 @@ import {UseRatioIndicatorComponent} from './use-ratio-indicator/use-ratio-indica
     BigScreenModule,
     NgxChartsModule,
     OperationPanelComponent,
-    UseRatioIndicatorComponent
+    UseRatioIndicatorComponent,
+    StatisticComponent
   ],
   providers: [{
     provide: NZ_I18N,

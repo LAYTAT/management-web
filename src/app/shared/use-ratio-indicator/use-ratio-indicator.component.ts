@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-use-ratio-indicator',
   templateUrl: './use-ratio-indicator.component.html',
   styleUrls: ['./use-ratio-indicator.component.css']
 })
-export class UseRatioIndicatorComponent implements OnInit {
+export class UseRatioIndicatorComponent implements OnInit, OnDestroy {
 
   @Input()
-  dimension: number[];
+  view: number[];
   multi = [
     {
       'name': '负载',
@@ -19,11 +19,13 @@ export class UseRatioIndicatorComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
+  timer;
+
   constructor() {
   }
 
   ngOnInit() {
-    setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.multi[0].series.length > 15) {
         this.multi[0].series.shift();
       }
@@ -33,5 +35,9 @@ export class UseRatioIndicatorComponent implements OnInit {
       });
       this.multi = this.multi.slice();
     }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 }

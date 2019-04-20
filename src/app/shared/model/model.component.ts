@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {PerspectiveCamera, Scene, Vector3, WebGLRenderer} from 'three';
 import {OrbitControls} from 'three-orbitcontrols-ts';
 import {Digger} from './digger/digger';
@@ -27,6 +27,9 @@ export class ModelComponent implements OnInit, AfterViewInit {
   private orbit: OrbitControls;
   public ambient: Ambient;
   public digger: Digger;
+
+  @Input()
+  carId: number;
 
   constructor(private keyboardEventService: KeyboardEventService) {
   }

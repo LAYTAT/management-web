@@ -15,6 +15,9 @@ export class ButtonComponent implements OnInit {
   name: string;
   pressed = false;
 
+  @Input()
+  carId: number;
+
   constructor(private keyboardEventService: KeyboardEventService,
               private mqttService: MqttService) {
   }
@@ -22,19 +25,22 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {
     this.keyboardEventService.keydown$.pipe(
       filter(event => event.key === this.key),
-      throttleTime(200),
-      tap(() => this.pressed = true),
+      throttleTime(150),
+      tap(() => {
+        this.pressed = true;
+      }),
       concatMap(
-        () => this.mqttService.publish(`car`,
+        () => this.mqttService.publish(`diggers/1000000`,
           `${this.key}`, {qos: 1}))
     ).subscribe();
     this.keyboardEventService.keyup$.pipe(
       filter(event => event.key === this.key),
-      throttleTime(200),
-      tap(() => this.pressed = false),
+      tap(() => {
+        this.pressed = false;
+      }),
       concatMap(
-        () => this.mqttService.publish(`car`,
-          `${this.key}`, {qos: 1}))
+        () => this.mqttService.publish(`diggers/1000000`,
+          `${this.key}s`, {qos: 1}))
     ).subscribe();
   }
 }

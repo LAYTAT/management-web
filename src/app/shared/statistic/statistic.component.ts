@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-statistic',
@@ -6,30 +6,36 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
+  @Input()
+  view: number[];
   single = [
     {
-      'name': 'Germany',
-      'value': 40632
+      'name': '前1天',
+      'value': 10
     },
     {
-      'name': 'United States',
-      'value': 49737
+      'name': '前2天',
+      'value': 4
     },
     {
-      'name': 'France',
-      'value': 36745
+      'name': '前3天',
+      'value': 5
     },
     {
-      'name': 'United Kingdom',
-      'value': 36240
+      'name': '前4天',
+      'value': 7
     },
     {
-      'name': 'Spain',
-      'value': 33000
+      'name': '前5天',
+      'value': 8
     },
     {
-      'name': 'Italy',
-      'value': 35800
+      'name': '前6天',
+      'value': 6
+    },
+    {
+      'name': '前7天',
+      'value': 6
     }
   ];
   colorScheme = {
@@ -40,9 +46,5 @@ export class StatisticComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  onSelect(event) {
-    console.log(event);
   }
 }
