@@ -20,7 +20,6 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
   car: Car;
   currentUser: User;
   runningTime = 0;
-  available = false;
 
   isFullscreen = false;
 
@@ -55,7 +54,7 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
         if (car.startDate) {
           this.runningTime = new Date().getTime() - car.startDate;
         }
-        this.available = !this.car.currentDriver ||
+        this.authService.qualified = !this.car.currentDriver ||
           this.car.currentDriver.employeeId === this.currentUser.employeeId;
       }
     );

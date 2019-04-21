@@ -14,10 +14,20 @@ export class AuthService {
   private _redirectUrl = '';
   private currentUserSubject = new BehaviorSubject<User>(null);
 
+  private _qualified = false;
+
   constructor(private http: HttpClient) {
     if (this.loggedIn) {
       this.currentUserSubject.next(JSON.parse(localStorage.getItem('current_user')));
     }
+  }
+
+  get qualified(): boolean {
+    return this._qualified;
+  }
+
+  set qualified(value: boolean) {
+    this._qualified = value;
   }
 
   get currentUser(): User {

@@ -7,6 +7,7 @@ import {Controller} from './controller';
 import {Ambient} from './ambient/ambient';
 import {fromEvent} from 'rxjs';
 import {map, throttleTime} from 'rxjs/operators';
+import {AuthService} from '../service/auth.service';
 
 const WINDOW_SCALE = 1.3; // 窗口缩放比
 
@@ -31,7 +32,8 @@ export class ModelComponent implements OnInit, AfterViewInit {
   @Input()
   carId: number;
 
-  constructor(private keyboardEventService: KeyboardEventService) {
+  constructor(private keyboardEventService: KeyboardEventService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initialize();
-    this.controller = new Controller(this, this.keyboardEventService);
+    this.controller = new Controller(this, this.keyboardEventService, this.authService);
     this.controller.subscribeKeyDown();
     this.controller.subscribeKeyUp();
     this.controller.subscribeTouchStart();

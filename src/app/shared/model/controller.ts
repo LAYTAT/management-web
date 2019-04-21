@@ -9,6 +9,7 @@ import {KeyboardEventService} from '../service/keyboard-event.service';
 import {filter, map} from 'rxjs/operators';
 import {ModelComponent} from './model.component';
 import {fromEvent} from 'rxjs';
+import {AuthService} from '../service/auth.service';
 
 /* 控制的业务处理类 */
 export class Controller {
@@ -19,7 +20,8 @@ export class Controller {
   // MQTT服务对象
 
   // 注入服务
-  constructor(model: ModelComponent, keyboardEventService: KeyboardEventService) {
+  constructor(model: ModelComponent, keyboardEventService: KeyboardEventService,
+              private authService: AuthService) {
     this.model = model;
     this.keyboardEventService = keyboardEventService;
   }
@@ -106,90 +108,105 @@ export class Controller {
   // 按键按下服务
   public subscribeKeyDown(): void {
     this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'y')
-    ).subscribe(() => this.turnBucketUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'h')
-    ).subscribe(() => this.turnBucketDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'u')
-    ).subscribe(() => this.turnMiddleArmUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'j')
-    ).subscribe(() => this.turnMiddleArmDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'i')
-    ).subscribe(() => this.turnLongArmUp());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'k')
-    ).subscribe(() => this.turnLongArmDown());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'o')
-    ).subscribe(() => this.turnMainBodyLeft());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'l')
-    ).subscribe(() => this.turnMainBodyRight());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'a')
-    ).subscribe(() => this.turnDiggerLeft());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'd')
-    ).subscribe(() => this.turnDiggerRight());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'w')
-    ).subscribe(() => this.moveDiggerForward());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 's')
-    ).subscribe(() => this.moveDiggerBackward());
-    this.keyboardEventService.keydown$.pipe(
-      filter(event => event.key === 'p')
-    ).subscribe(() => this.switchLights());
+      filter(() => this.authService.qualified)
+    ).subscribe(
+      event => {
+        switch (event.key) {
+          case 'y':
+            this.turnBucketUp();
+            break;
+          case 'h':
+            this.turnBucketDown();
+            break;
+          case 'u':
+            this.turnMiddleArmUp();
+            break;
+          case 'j':
+            this.turnMiddleArmDown();
+            break;
+          case 'i':
+            this.turnLongArmUp();
+            break;
+          case 'k':
+            this.turnLongArmDown();
+            break;
+          case 'o':
+            this.turnMainBodyLeft();
+            break;
+          case 'l':
+            this.turnMainBodyRight();
+            break;
+          case 'a':
+            this.turnDiggerLeft();
+            break;
+          case 'd':
+            this.turnDiggerRight();
+            break;
+          case 'w':
+            this.moveDiggerForward();
+            break;
+          case 's':
+            this.moveDiggerBackward();
+            break;
+          case 'p':
+            this.switchLights();
+        }
+      }
+    );
   }
 
   // 按键弹起服务
   public subscribeKeyUp(): void {
     this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'y')
-    ).subscribe(() => this.stopBucketRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'h')
-    ).subscribe(() => this.stopBucketRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'u')
-    ).subscribe(() => this.stopMiddleArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'j')
-    ).subscribe(() => this.stopMiddleArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'i')
-    ).subscribe(() => this.stopLongArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'k')
-    ).subscribe(() => this.stopLongArmRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'o')
-    ).subscribe(() => this.stopMainBodyRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'l')
-    ).subscribe(() => this.stopMainBodyRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'a')
-    ).subscribe(() => this.stopDiggerRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'd')
-    ).subscribe(() => this.stopDiggerRotation());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 'w')
-    ).subscribe(() => this.stopDiggerMotion());
-    this.keyboardEventService.keyup$.pipe(
-      filter(event => event.key === 's')
-    ).subscribe(() => this.stopDiggerMotion());
+      filter(() => this.authService.qualified),
+    ).subscribe(
+      event => {
+        switch (event.key) {
+          case 'y':
+            this.stopBucketRotation();
+            break;
+          case 'h':
+            this.stopBucketRotation();
+            break;
+          case 'u':
+            this.stopMiddleArmRotation();
+            break;
+          case 'j':
+            this.stopMiddleArmRotation();
+            break;
+          case 'i':
+            this.stopLongArmRotation();
+            break;
+          case 'k':
+            this.stopLongArmRotation();
+            break;
+          case 'o':
+            this.stopMainBodyRotation();
+            break;
+          case 'l':
+            this.stopMainBodyRotation();
+            break;
+          case 'a':
+            this.stopDiggerRotation();
+            break;
+          case 'd':
+            this.stopDiggerRotation();
+            break;
+          case 'w':
+            this.stopDiggerMotion();
+            break;
+          case 's':
+            this.stopDiggerMotion();
+        }
+      }
+    );
   }
 
 
   subscribeTouchStart(): void {
     fromEvent(document, 'touchstart')
       .pipe(
+        filter(() => this.authService.qualified),
         map(event => event.target['innerText'])
       )
       .subscribe(text => {
