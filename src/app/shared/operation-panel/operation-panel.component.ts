@@ -4,6 +4,7 @@ import {AuthService} from '../service/auth.service';
 import {CarService} from '../service/car.service';
 import {User} from '../entity/user';
 import {BigScreenService} from 'angular-bigscreen';
+import {MqttService} from 'ngx-mqtt';
 
 @Component({
   selector: 'app-operation-panel',
@@ -21,11 +22,16 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
   currentUser: User;
   runningTime = 0;
 
+  automatic = false;
+
   isFullscreen = false;
+
+  qualified = false;
 
   constructor(private authService: AuthService,
               private carService: CarService,
-              private bigScreenService: BigScreenService) {
+              private bigScreenService: BigScreenService,
+              private mqttService: MqttService) {
   }
 
   ngOnInit() {
@@ -41,6 +47,7 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
 
   ngDoCheck(): void {
     this.isFullscreen = this.bigScreenService.isFullscreen();
+    this.qualified = this.authService.qualified;
   }
 
   getCurrentUser(): void {
@@ -60,7 +67,7 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
     );
   }
 
-  startDrive() {
+  startDrive(): void {
     this.mainFullScreen();
     this.carService.startDrive(this.car.carId, this.currentUser.employeeId).subscribe(
       car => {
@@ -69,14 +76,14 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
       });
   }
 
-  finishDrive() {
+  finishDrive(): void {
     this.exitFullscreen();
     this.runningTime = 0;
     this.carService.finishDrive(this.car.carId).subscribe(
       car => this.car = car);
   }
 
-  mainFullScreen() {
+  mainFullScreen(): void {
     this.bigScreenService.request(this.mainContainer);
   }
 
@@ -84,5 +91,10 @@ export class OperationPanelComponent implements OnInit, OnChanges, DoCheck {
     if (this.bigScreenService.isFullscreen()) {
       this.bigScreenService.exit();
     }
+  }
+
+  clickSwitch(): void {
+    this.mqttService.publish(`diggers/${this.carId}/command`,
+      String(this.automatic), {qos: 1});
   }
 }

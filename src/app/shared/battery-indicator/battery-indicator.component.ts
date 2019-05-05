@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MqttService} from 'ngx-mqtt';
 
 @Component({
   selector: 'app-battery-indicator',
@@ -7,14 +8,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class BatteryIndicatorComponent implements OnInit {
   value = 0;
+  @Input()
+  carId: number;
 
-  constructor() {
+  constructor(private mqttService: MqttService) {
   }
 
   ngOnInit() {
-    setInterval(() => {
-      this.value = Math.random() * 120;
-    }, 500);
+    this.mqttService.observe(`diggers/${this.carId}/battery`)
+      .subscribe(message => console.log(message.payload.toString()));
   }
 
 }

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MqttService} from 'ngx-mqtt';
 
 @Component({
   selector: 'app-speedometer',
@@ -8,13 +9,15 @@ import {Component, OnInit} from '@angular/core';
 export class SpeedometerComponent implements OnInit {
   value = 0;
 
-  constructor() {
+  @Input()
+  carId: number;
+
+  constructor(private mqttService: MqttService) {
 
   }
 
   ngOnInit(): void {
-    setInterval(() => {
-      this.value = Math.random() * 120;
-    }, 500);
+    this.mqttService.observe(`diggers/${this.carId}/speed`)
+      .subscribe(message => console.log(message.payload.toString()));
   }
 }

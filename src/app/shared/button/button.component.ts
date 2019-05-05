@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {KeyboardEventService} from '../service/keyboard-event.service';
 import {MqttService} from 'ngx-mqtt';
 import {concatMap, filter, tap, throttleTime} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {AuthService} from '../service/auth.service';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnInit, DoCheck {
   @Input()
   key: string;
   @Input()
@@ -18,6 +18,7 @@ export class ButtonComponent implements OnInit {
 
   @Input()
   carId: number;
+  qualified = false;
 
   constructor(private keyboardEventService: KeyboardEventService,
               private mqttService: MqttService,
@@ -45,8 +46,12 @@ export class ButtonComponent implements OnInit {
           this.pressed = false;
         }),
         concatMap(
-          () => this.mqttService.publish(`diggers/${this.carId}`,
+          () => this.mqttService.publish(`diggers/${this.carId}/command`,
             `${this.key}s`, {qos: 1}))
       ).subscribe();
+  }
+
+  ngDoCheck(): void {
+    this.qualified = this.authService.qualified;
   }
 }
