@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {WidthService} from '../service/width.service';
 
 @Component({
   selector: 'app-statistic',
@@ -6,8 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-  @Input()
-  view: number[];
+
   single = [
     {
       'name': '前1天',
@@ -42,7 +42,7 @@ export class StatisticComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor() {
+  constructor(public widthService: WidthService) {
   }
 
   ngOnInit() {

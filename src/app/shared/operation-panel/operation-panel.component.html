@@ -22,12 +22,10 @@
     <ng-template #liveTitle>
       <i nz-icon nzTheme="outline" nzType="video-camera"></i> Live
     </ng-template>
-    <div #useRatio>
+    <div>
       <nz-card [nzBodyStyle]="{'padding-bottom':'5px', 'padding-top':'7px',
       'padding-left':'0','padding-right':'0'}" nzHoverable nzTitle="使用率">
-        <app-use-ratio-indicator
-          [view]="[useRatio.offsetWidth,useRatio.offsetWidth*0.5]">
-        </app-use-ratio-indicator>
+        <app-use-ratio-indicator></app-use-ratio-indicator>
       </nz-card>
     </div>
   </div>
@@ -43,19 +41,32 @@
           <div>
             <app-battery-indicator [carId]="carId"></app-battery-indicator>
           </div>
-          <div class="d-flex mb-3 align-items-center">
-            <button (click)="startDrive()" [disabled]="car?.startDate||!qualified"
-                    nz-button nzShape="circle" nzSize="large" nzType="primary">
-              <i nz-icon nzTheme="outline" nzType="caret-right"></i>
-            </button>
-            <nz-switch (ngModelChange)="clickSwitch()" [(ngModel)]="automatic" [nzDisabled]="!qualified"
-                       class="mx-4" nzCheckedChildren="Auto"
-                       nzUnCheckedChildren="Auto">
-            </nz-switch>
-            <button (click)="finishDrive()" [disabled]="!car?.startDate||!qualified"
-                    nz-button nzShape="circle" nzSize="large" nzType="danger">
-              <i nz-icon nzTheme="outline" nzType="pause"></i>
-            </button>
+          <div class="align-self-center row">
+            <div class="col">
+              <button (click)="startDrive()" [disabled]="car?.currentDriver"
+                      nz-button nzShape="circle" nzSize="large" nzType="primary">
+                <i nz-icon nzTheme="outline" nzType="caret-right"></i>
+              </button>
+              <div class="mt-2 explain-text">
+                启动
+              </div>
+            </div>
+            <div class="col">
+              <button (click)="finishDrive()"
+                      [disabled]="!authService.available"
+                      nz-button nzShape="circle" nzSize="large" nzType="danger">
+                <i nz-icon nzTheme="outline" nzType="pause"></i>
+              </button>
+              <div class="mt-2 explain-text">
+                停止
+              </div>
+            </div>
+            <div class="col">
+              <app-button [carId]="carId" [key]="'p'" [name]="'P'"></app-button>
+              <div class="mt-2 explain-text">
+                灯光
+              </div>
+            </div>
           </div>
           <div>
             <app-speedometer [carId]="carId"></app-speedometer>
@@ -106,8 +117,7 @@
     <div #statistic class="mb-3">
       <nz-card [nzBodyStyle]="{'padding-bottom':'14px', 'padding-top':'14px',
       'padding-left':'0','padding-right':'0'}" nzHoverable nzTitle="近7天使用情况">
-        <app-statistic [view]="[statistic.offsetWidth,statistic.offsetWidth*0.5]">
-        </app-statistic>
+        <app-statistic></app-statistic>
       </nz-card>
     </div>
     <div>

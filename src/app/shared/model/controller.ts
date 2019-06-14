@@ -108,7 +108,7 @@ export class Controller {
   // 按键按下服务
   public subscribeKeyDown(): void {
     this.keyboardEventService.keydown$.pipe(
-      filter(() => this.authService.qualified)
+      filter(() => this.authService.available)
     ).subscribe(
       event => {
         switch (event.key) {
@@ -158,7 +158,7 @@ export class Controller {
   // 按键弹起服务
   public subscribeKeyUp(): void {
     this.keyboardEventService.keyup$.pipe(
-      filter(() => this.authService.qualified),
+      filter(() => this.authService.available)
     ).subscribe(
       event => {
         switch (event.key) {
@@ -202,11 +202,9 @@ export class Controller {
     );
   }
 
-
   subscribeTouchStart(): void {
     fromEvent(document, 'touchstart')
       .pipe(
-        filter(() => this.authService.qualified),
         map(event => event.target['innerText'])
       )
       .subscribe(text => {

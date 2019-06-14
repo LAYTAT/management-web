@@ -1,4 +1,5 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {WidthService} from '../service/width.service';
 
 @Component({
   selector: 'app-use-ratio-indicator',
@@ -7,8 +8,6 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 })
 export class UseRatioIndicatorComponent implements OnInit, OnDestroy {
 
-  @Input()
-  view: number[];
   multi = [
     {
       'name': '负载',
@@ -21,7 +20,7 @@ export class UseRatioIndicatorComponent implements OnInit, OnDestroy {
 
   timer;
 
-  constructor() {
+  constructor(public widthService: WidthService) {
   }
 
   ngOnInit() {

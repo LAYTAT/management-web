@@ -18,7 +18,8 @@ export class ButtonComponent implements OnInit, DoCheck {
 
   @Input()
   carId: number;
-  qualified = false;
+
+  available = false;
 
   constructor(private keyboardEventService: KeyboardEventService,
               private mqttService: MqttService,
@@ -28,19 +29,19 @@ export class ButtonComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.keyboardEventService.keydown$
       .pipe(
-        filter(() => this.authService.qualified),
+        filter(() => this.available),
         filter(event => event.key === this.key),
         throttleTime(150),
         tap(() => {
           this.pressed = true;
         }),
         concatMap(
-          () => this.mqttService.publish(`diggers/${this.carId}`,
+          () => this.mqttService.publish(`diggers/${this.carId}/command`,
             `${this.key}`, {qos: 1}))
       ).subscribe();
     this.keyboardEventService.keyup$
       .pipe(
-        filter(() => this.authService.qualified),
+        filter(() => this.available),
         filter(event => event.key === this.key),
         tap(() => {
           this.pressed = false;
@@ -52,6 +53,6 @@ export class ButtonComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.qualified = this.authService.qualified;
+    this.available = this.authService.available;
   }
 }

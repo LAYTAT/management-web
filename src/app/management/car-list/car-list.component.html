@@ -45,7 +45,7 @@
       </nz-card>
     </a>
     <ng-template #coverTemplate>
-      <img *ngIf="car.snapshot; else elseBlock" alt="example" [src]="car.snapshot.id|image"/>
+      <img *ngIf="car.liveUrl; else elseBlock" [src]="car.liveUrl" alt="example"/>
     </ng-template>
     <ng-template #elseBlock>
       <img alt="" src="https://via.placeholder.com/320x240"/>

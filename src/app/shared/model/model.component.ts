@@ -82,7 +82,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
       this.modelContainer.offsetWidth / WINDOW_SCALE);
 
     // 添加场景物体
-    this.digger = new Digger(this.scene, 0.7);
+    this.digger = new Digger(this.scene, 0.5);
     this.ambient = new Ambient();
     this.scene.add(this.ambient.model);
 

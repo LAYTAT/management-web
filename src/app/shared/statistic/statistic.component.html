@@ -1,10 +1,8 @@
-<div>
-  <ngx-charts-bar-vertical
-    [gradient]="false"
-    [results]="single"
-    [scheme]="colorScheme"
-    [view]="view"
-    [xAxis]="true"
-    [yAxis]="true">
-  </ngx-charts-bar-vertical>
-</div>
+<ngx-charts-bar-vertical
+  [gradient]="false"
+  [results]="single"
+  [scheme]="colorScheme"
+  [view]="[widthService.width,widthService.width*0.5]"
+  [xAxis]="true"
+  [yAxis]="true">
+</ngx-charts-bar-vertical>

@@ -7,3 +7,9 @@
 .rounded-circle {
   border-radius: 50%;
 }
+
+.explain-text {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+}

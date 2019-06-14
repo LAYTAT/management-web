@@ -14,7 +14,7 @@ export class AuthService {
   private _redirectUrl = '';
   private currentUserSubject = new BehaviorSubject<User>(null);
 
-  private _qualified = false;
+  private _available = false;
 
   constructor(private http: HttpClient) {
     if (this.loggedIn) {
@@ -22,12 +22,12 @@ export class AuthService {
     }
   }
 
-  get qualified(): boolean {
-    return this._qualified;
+  get available(): boolean {
+    return this._available;
   }
 
-  set qualified(value: boolean) {
-    this._qualified = value;
+  set available(value: boolean) {
+    this._available = value;
   }
 
   get currentUser(): User {
