@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {PerspectiveCamera, Scene, Vector3, WebGLRenderer} from 'three';
+import {Clock, PerspectiveCamera, Scene, Vector3, WebGLRenderer} from 'three';
 import {OrbitControls} from 'three-orbitcontrols-ts';
 import {Digger} from './digger/digger';
 import {KeyboardEventService} from '../service/keyboard-event.service';
@@ -26,6 +26,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
   private camera: PerspectiveCamera;
   private renderer: WebGLRenderer;
   private orbit: OrbitControls;
+  private clock: Clock;
   public ambient: Ambient;
   public digger: Digger;
 
@@ -80,6 +81,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
     this.renderer.shadowMap.enabled = true;
     this.renderer.setSize(this.modelContainer.offsetWidth,
       this.modelContainer.offsetWidth / WINDOW_SCALE);
+    this.clock = new Clock();
 
     // 添加场景物体
     this.digger = new Digger(this.scene, 0.5);
@@ -96,6 +98,7 @@ export class ModelComponent implements OnInit, AfterViewInit {
     const self: ModelComponent = this;
     (function render() {
       self.digger.turn();
+      self.digger.move();
       self.orbit.update();
       requestAnimationFrame(render);
       self.renderer.render(self.scene, self.camera);

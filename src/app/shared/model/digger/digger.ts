@@ -56,6 +56,11 @@ export class Digger {
     this.bucket.turn();
   }
 
+  // 核心移动函数：提供给循环渲染
+  public move(): void {
+    this.chassis.move();
+  }
+
   /************************>3.主体转向的函数集<***************************/
   // 一直左转
   public turnMainBodyLeft(): void {
