@@ -205,6 +205,7 @@ export class Controller {
   subscribeTouchStart(): void {
     fromEvent(document, 'touchstart')
       .pipe(
+        filter(() => this.authService.available),
         map(event => event.target['innerText'])
       )
       .subscribe(text => {
@@ -252,6 +253,7 @@ export class Controller {
   subscribeTouchEnd(): void {
     fromEvent(document, 'touchend')
       .pipe(
+        filter(() => this.authService.available),
         map(event => event.target['innerText'])
       )
       .subscribe(text => {
